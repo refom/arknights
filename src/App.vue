@@ -1,7 +1,12 @@
 <script setup>
+import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello</h1>
+  <nav>
+    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/about">About</RouterLink>
+  </nav>
+  <RouterView />
 </template>
 
