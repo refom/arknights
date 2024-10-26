@@ -1,10 +1,11 @@
 <template>
-  <main>
-    <h1 class="font-bold">
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus,
-      aut. Aperiam harum temporibus iusto tempora voluptates ex molestiae ea
-      vitae, eveniet aliquid. Aliquam, temporibus! Perferendis, fugiat. Vero
-      quos dolore fugit.
-    </h1>
-  </main>
+	<div class="flex min-h-screen">
+		<Acc />
+	</div>
+	<Board />
 </template>
+
+<script setup>
+import Board from '@/components/Board/Board.vue';
+import Acc from '@/components/Acc/Acc.vue';
+</script>
