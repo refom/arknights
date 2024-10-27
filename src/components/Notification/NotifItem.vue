@@ -1,15 +1,17 @@
 <template>
-	<button
-		v-if="isActive"
-		@click="CloseNotif"
-		:class="StatusBg"
-		class="w-full rounded-lg p-3 text-lg">
-		<div class="flex items-center px-3 py-2 font-semibold">
-			<span>
-				{{ item.message }}
-			</span>
-		</div>
-	</button>
+	<div class="px-5 py-1">
+		<button
+			v-if="isActive"
+			@click="CloseNotif"
+			:class="StatusBg"
+			class="w-full rounded-lg p-3 text-lg">
+			<div class="flex items-center px-3 py-2 font-semibold">
+				<span>
+					{{ item.message }}
+				</span>
+			</div>
+		</button>
+	</div>
 </template>
 
 <script setup>

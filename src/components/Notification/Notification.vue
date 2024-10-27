@@ -1,5 +1,5 @@
 <template>
-	<div class="fixed bottom-20 z-50 flex w-full flex-col gap-3 px-5 py-1">
+	<div class="fixed bottom-5 flex w-full flex-col">
 		<SlideUpT duration="100">
 			<NotifItem
 				v-for="notif in NOTIF_STORE.GetNotif"

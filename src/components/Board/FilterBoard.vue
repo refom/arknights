@@ -1,6 +1,16 @@
 <template>
-	<div class="flex wh-full bg-bismark-400">
+	<div class="flex flex-col wh-full bg-bismark-900">
+		<!-- Sort by -->
+		<div class="w-full bg-black">
 
+		</div>
+
+		<!-- Operator -->
+		<div class="w-full bg-red-700">
+
+		</div>
+		
+		<!-- Tags -->
 	</div>
 </template>
 

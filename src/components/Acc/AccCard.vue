@@ -35,8 +35,8 @@
 		<div
 			@click="showOperator = !showOperator"
 			:class="CollapseOperator"
-			class="flex w-full flex-wrap items-center gap-2 overflow-hidden transition-all">
-			<OperatorAvatar class="h-18 w-14" v-for="i in 10" />
+			class="flex w-full flex-wrap items-start gap-2 overflow-hidden transition-all">
+			<OperatorAvatar class="w-14" v-for="op in Operators" :operator="op" />
 		</div>
 
 		<!-- Details -->
@@ -47,8 +47,10 @@
 			</span>
 
 			<span
-				class="rounded bg-rare-one px-1 font-oxanium font-medium text-primary">
-				{{ acc.tag[0] }}
+				v-for="tag in Tags"
+				:class="$rarityToStyle(tag.rarity)"
+				class="rounded px-1 font-oxanium font-medium text-primary">
+				{{ tag.name }}
 			</span>
 		</div>
 	</div>
@@ -57,6 +59,8 @@
 <script setup>
 import { ref, computed } from "vue"
 import { useNotifStore } from "@/stores/notification"
+import { useOperatorStore } from "@/stores/operator";
+import { useTagStore } from "@/stores/tag";
 
 // Components
 import OperatorAvatar from "./OperatorAvatar.vue"
@@ -78,11 +82,17 @@ const PROPS = defineProps({
 	},
 })
 
-// Variables
+// Stores
 const NOTIF_STORE = useNotifStore()
+const OPERATOR_STORE = useOperatorStore()
+const TAG_STORE = useTagStore()
+
+// Variables
 const showOperator = ref(false)
 
 // Getters
+const Operators = computed(() => OPERATOR_STORE.SortByRarity(PROPS.acc.operator))
+const Tags = computed(() => TAG_STORE.GetTags(PROPS.acc.tag))
 const ChangeCaret = computed(() =>
 	showOperator.value ? "rotate-180" : "rotate-0"
 )
@@ -92,9 +102,11 @@ const CollapseOperator = computed(() =>
 
 // Actions
 const CopyAcc = () => {
+	const sixStarOp = Operators.value.filter((op) => op.rarity === 6).map((op) => op.name)
+	const tagsName = Tags.value.map((tag) => tag.name).join(", ")
 	navigator.clipboard
 		.writeText(
-			`#${PROPS.acc.id}\nOperator: ${PROPS.acc.operator}\nTag: ${PROPS.acc.tag}`
+			`#${PROPS.acc.id}\nOperator: ${sixStarOp}\nTag: ${tagsName}`
 		)
 		.catch(console.error)
 

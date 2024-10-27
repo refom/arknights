@@ -1,5 +1,5 @@
 <template>
-	<Transition
+	<TransitionGroup
 		:enter-active-class="Duration"
 		:leave-active-class="Duration"
 		enter-active-class="transition-all ease-out"
@@ -9,7 +9,7 @@
 		leave-from-class="translate-y-0"
 		leave-to-class="translate-y-full">
 		<slot></slot>
-	</Transition>
+	</TransitionGroup>
 </template>
 
 <script setup>
