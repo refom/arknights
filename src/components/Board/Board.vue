@@ -18,12 +18,12 @@
 					<button
 						@click="CurrentTab = 0"
 						class="wh-full bg-bismark-900 py-1 active:bg-bismark-950">
-						<Info class="wh-full" />
+						<IInfo class="w-full h-2/3" />
 					</button>
 					<button
 						@click="CurrentTab = 1"
 						class="wh-full bg-bismark-900 py-1 active:bg-bismark-950">
-						<Filter class="wh-full" />
+						<IFilter class="w-full h-2/3" />
 					</button>
 				</div>
 			</div>
@@ -42,9 +42,9 @@
 			<button
 				@click="IsOpen = !IsOpen"
 				class="flex h-full w-full items-center justify-center transition-all active:bg-bismark-950">
-				<CaretUp
+				<ICaretUp
 					:class="ChangeCaret"
-					class="h-full transition-all duration-500" />
+					class="h-2/3 transition-all duration-500" />
 			</button>
 
 			<!-- Social Link -->
