@@ -19,18 +19,18 @@
 			</div>
 
 			<!-- Button -->
-			<div class="flex h-full w-1/4 items-center gap-3 p-1">
+			<div class="flex h-full max-w-20 items-center gap-3 p-1 sticky right-1">
 				<!-- Copy ID -->
 				<button
 					@click="CopyAcc"
-					class="light-mode wh-full cursor-pointer select-none rounded transition-all active:bg-light/50">
+					class="light-mode h-full min-w-7 cursor-pointer select-none rounded transition-all active:bg-light/50">
 					<ICopy class="wh-full" />
 				</button>
 
 				<!-- Show All Operator -->
 				<button
 					@click="showOperator = !showOperator"
-					class="light-mode wh-full cursor-pointer select-none rounded transition-all active:bg-light/50">
+					class="light-mode h-full min-w-7 cursor-pointer select-none rounded transition-all active:bg-light/50">
 					<ICaretDown
 						:class="ChangeCaret"
 						class="wh-full transition-all duration-500" />
@@ -44,7 +44,6 @@
 			:class="CollapseOperator"
 			class="flex w-full flex-wrap items-start gap-2 overflow-hidden transition-all">
 			<OperatorAvatar
-				class="w-14"
 				v-for="op in Operators"
 				:operator="op" />
 		</div>
@@ -120,7 +119,7 @@ const ChangeCaret = computed(() =>
 	showOperator.value ? "rotate-180" : "rotate-0",
 )
 const CollapseOperator = computed(() =>
-	showOperator.value ? "max-h-full" : "max-h-[4.5rem]",
+	showOperator.value ? "max-h-full" : "max-h-18 md:max-h-20 lg:max-h-24",
 )
 
 // Actions

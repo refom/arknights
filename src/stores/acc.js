@@ -30,7 +30,7 @@ const useAccStore = defineStore("acc", () => {
 		let temp = DATA.value
 
 		if (OPERATOR_STORE.SEARCH_OPERATOR.length) {
-			temp = temp.filter((acc) => OPERATOR_STORE.SEARCH_OPERATOR.some((op) => acc.operator.includes(op)))
+			temp = temp.filter((acc) => OPERATOR_STORE.SEARCH_OPERATOR.every((op) => acc.operator.includes(op)))
 		}
 
 		if (SEARCH_SIX_LENGTH.value) {

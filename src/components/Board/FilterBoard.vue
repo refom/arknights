@@ -110,12 +110,11 @@
 						class="flex wh-full flex-wrap justify-center gap-1 overflow-y-auto overflow-x-hidden rounded bg-bismark-950">
 						<OperatorCheckbox
 							v-if="FilteredOperator.length"
-							class="max-w-14 ring ring-light scale-95"
+							class="ring ring-light scale-95"
 							v-for="(op, index) in FilteredOperator"
 							:key="op.id + index"
 							:operator="op" />
 						<OperatorCheckbox
-							class="max-w-14"
 							v-for="(op, index) in OPERATOR_STORE.FILTERED"
 							:key="op.id + index"
 							:operator="op" />
