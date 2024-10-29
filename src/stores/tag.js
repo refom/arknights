@@ -8,7 +8,13 @@ const useTagStore = defineStore("tag", () => {
 	const SEARCH_TAG = ref([])
 
 	// Actions
-	const GetById = (id) => DATA.value.find((tag) => tag.id === id)
+	const GetById = (id) =>
+		DATA.value.find((tag) => tag.id === id) ||
+		{
+			id: "tag id",
+			name: "Tag Example",
+			rarity: 6,
+		}
 
 	const AddSearchTag = (id) => {
 		if (SEARCH_TAG.value.includes(id)) {

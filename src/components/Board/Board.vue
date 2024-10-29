@@ -5,24 +5,31 @@
 		<SlideUpT duration="300">
 			<div
 				v-if="IsOpen"
-				class="flex h-screen w-full flex-col bg-bismark-900 overflow-y-auto">
-				<!-- Info Board -->
-				<InfoBoard v-if="CurrentTab === 0" />
-
-				<!-- Filter Acc -->
-				<FilterBoard v-else-if="CurrentTab === 1" />
+				class="flex w-full flex-col bg-bismark-900 overflow-y-auto">
+				<!-- Board Content -->
+				<div class="flex wh-full">
+					<!-- Info Board -->
+					<SlideUpT direction="right" :opacity="true">
+						<InfoBoard v-if="CurrentTab === 0" />
+					</SlideUpT>
+	
+					<!-- Filter Acc -->
+					<SlideUpT direction="left" :opacity="true">
+						<FilterBoard v-if="CurrentTab === 1" />
+					</SlideUpT>
+				</div>
 
 				<!-- Tab -->
 				<div
-					class="sticky bottom-0 flex h-12 w-full items-center justify-around border-b">
+					class="sticky bottom-0 flex h-12 w-full items-center justify-around border-b bg-bismark-900">
 					<button
 						@click="CurrentTab = 0"
-						class="wh-full bg-bismark-900 py-1 active:bg-bismark-950">
+						class="wh-full py-1 active:bg-bismark-950">
 						<IInfo class="w-full h-2/3" />
 					</button>
 					<button
 						@click="CurrentTab = 1"
-						class="wh-full bg-bismark-900 py-1 active:bg-bismark-950">
+						class="wh-full py-1 active:bg-bismark-950">
 						<IFilter class="w-full h-2/3" />
 					</button>
 				</div>

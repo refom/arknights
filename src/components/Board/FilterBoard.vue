@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="wh-full flex flex-col gap-3 bg-bismark-900 pt-3">
+		class="wh-full flex flex-col gap-3 pt-3">
 		<!-- Sort by -->
 		<div class="flex h-10 w-full items-center gap-3 px-3 font-oxanium">
 			<div class="flex h-full items-center rounded bg-bismark-950 px-1">
@@ -110,12 +110,12 @@
 						class="flex wh-full flex-wrap justify-center gap-1 overflow-y-auto overflow-x-hidden rounded bg-bismark-950">
 						<OperatorCheckbox
 							v-if="FilteredOperator.length"
-							class="max-w-16 ring ring-light"
+							class="max-w-14 ring ring-light scale-95"
 							v-for="(op, index) in FilteredOperator"
 							:key="op.id + index"
 							:operator="op" />
 						<OperatorCheckbox
-							class="max-w-16"
+							class="max-w-14"
 							v-for="(op, index) in OPERATOR_STORE.FILTERED"
 							:key="op.id + index"
 							:operator="op" />

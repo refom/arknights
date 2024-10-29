@@ -11,6 +11,9 @@ import Star from "@icons/Star.vue"
 import Sort from "@icons/Sort.vue"
 import Calendar from "@icons/Calendar.vue"
 import Close from "@icons/Close.vue"
+import Heart from "@icons/Heart.vue"
+import Thumbtack from "@icons/Thumbtack.vue"
+import InfoCircle from "@icons/InfoCircle.vue"
 
 export default {
 	install: (app, options) => {
@@ -27,5 +30,8 @@ export default {
 		app.component("ISort", Sort)
 		app.component("ICalendar", Calendar)
 		app.component("IClose", Close)
+		app.component("IHeart", Heart)
+		app.component("IThumbtack", Thumbtack)
+		app.component("IInfoCircle", InfoCircle)
 	},
 }

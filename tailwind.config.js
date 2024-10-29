@@ -73,6 +73,11 @@ export default {
                 21: "5.1rem",
                 22: "5.5rem",
             },
+			maxHeight: {
+				18: "4.5rem",
+				21: "5.1rem",
+				22: "5.5rem",
+			}
         },
     },
     plugins: [],

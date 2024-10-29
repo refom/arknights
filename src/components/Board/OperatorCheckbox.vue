@@ -1,7 +1,7 @@
 <template>
 	<label
 		:class="RarityToStyle(operator.rarity)"
-		class="flex flex-col aspect-square rounded bg-clip-border items-center max-h-20 hover:max-h-full">
+		class="flex flex-col aspect-square rounded bg-clip-border items-center max-h-18 hover:max-h-full">
 		<input
 			:id="operator.id"
 			type="checkbox"

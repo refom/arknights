@@ -30,7 +30,13 @@ const useOperatorStore = defineStore("operator", () => {
 	})
 
 	// Actions
-	const GetById = (id) => DATA.value.find((op) => op.id === id)
+	const GetById = (id) =>
+		DATA.value.find((op) => op.id === id) ||
+		{
+			id: "w",
+			name: "Operator Example",
+			rarity: 6,
+		}
 	const SetFilterStar = (star) => FILTER_STAR.value = (FILTER_STAR.value === star) ? 0 : star
 
 	const ListIdToObj = (opList) => opList.map((id) => GetById(id))
