@@ -1,7 +1,7 @@
 <template>
 	<label
-		:class="$rarityToStyle(operator.rarity)"
-		class="flex flex-col aspect-square rounded bg-clip-border max-w-full items-center group">
+		:class="RarityToStyle(operator.rarity)"
+		class="flex flex-col aspect-square rounded bg-clip-border items-center max-h-20 hover:max-h-full">
 		<input
 			:id="operator.id"
 			type="checkbox"
@@ -10,18 +10,22 @@
 			class="hidden" />
 
 		<img
-			:src="$opIdToImg(operator.id)"
+			:src="OpIdToImg(operator.id)"
 			:alt="operator.name"
 			class="wh-full object-cover" />
 		
-		<p class="text-center text-wrap text-xs font-medium text-primary w-full max-h-4 group-hover:max-h-full">
+		<p class="text-center text-wrap text-xs font-medium text-primary w-full overflow-hidden">
 			{{ operator.name }}
 		</p>
 	</label>
 </template>
 
 <script setup>
+import { inject } from 'vue';
 import { useOperatorStore } from '@/stores/operator';
+
+const { RarityToStyle, OpIdToImg } = inject("utils")
+
 const OPERATOR_STORE = useOperatorStore()
 const PROPS = defineProps({
 	operator: {

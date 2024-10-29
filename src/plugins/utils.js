@@ -25,7 +25,9 @@ const OpIdToImg = (id) => {
 
 export default {
 	install: (app, options) => {
-		app.config.globalProperties.$rarityToStyle = RarityToStyle
-		app.config.globalProperties.$opIdToImg = OpIdToImg
+		app.provide("utils", {
+			RarityToStyle,
+			OpIdToImg,
+		})
 	},
 }

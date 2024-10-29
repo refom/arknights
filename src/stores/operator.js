@@ -9,7 +9,7 @@ const useOperatorStore = defineStore("operator", () => {
 	const SEARCH_OPERATOR = ref([])
 
 	// Getters
-	const Filtered = computed(() => {
+	const FILTERED = computed(() => {
 		let temp = DATA.value
 		if (SEARCH_OPERATOR.value.length > 0) {
 			temp = temp.filter((op) => !SEARCH_OPERATOR.value.includes(op.id))
@@ -31,7 +31,7 @@ const useOperatorStore = defineStore("operator", () => {
 
 	// Actions
 	const GetById = (id) => DATA.value.find((op) => op.id === id)
-	const SetFilterStar = (star) => FILTER_STAR.value === star ? FILTER_STAR.value = 0 : FILTER_STAR.value = star
+	const SetFilterStar = (star) => FILTER_STAR.value = (FILTER_STAR.value === star) ? 0 : star
 
 	const ListIdToObj = (opList) => opList.map((id) => GetById(id))
 	const SortByRarity = (opList) => ListIdToObj(opList).sort((a, b) => b.rarity - a.rarity)
@@ -44,7 +44,8 @@ const useOperatorStore = defineStore("operator", () => {
 
 	return {
 		SEARCH_OPERATOR,
-		Filtered,
+		FILTER_STAR,
+		FILTERED,
 		GetById,
 		SetFilterStar,
 		SortByRarity,

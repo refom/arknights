@@ -1,9 +1,9 @@
 <template>
 	<div
-		:class="$rarityToStyle(operator.rarity)"
+		:class="RarityToStyle(operator.rarity)"
 		class="flex flex-col aspect-square rounded bg-clip-border max-w-full items-center group">
 		<img
-			:src="$opIdToImg(operator.id)"
+			:src="OpIdToImg(operator.id)"
 			:alt="operator.name"
 			class="wh-full object-cover" />
 		
@@ -14,6 +14,10 @@
 </template>
 
 <script setup>
+import { inject } from 'vue';
+
+const { RarityToStyle, OpIdToImg } = inject("utils")
+
 const PROPS = defineProps({
 	operator: {
 		type: Object,

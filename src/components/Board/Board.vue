@@ -5,7 +5,7 @@
 		<SlideUpT duration="300">
 			<div
 				v-if="IsOpen"
-				class="flex h-screen w-full flex-col bg-bismark-900">
+				class="flex h-screen w-full flex-col bg-bismark-900 overflow-y-auto">
 				<!-- Info Board -->
 				<InfoBoard v-if="CurrentTab === 0" />
 

@@ -3,11 +3,11 @@
 		<div v-if="isLoading" class="wh-full flex flex-col items-center justify-center">
 			<IRefresh class="w-1/2 h-1/2 animate-spin" />
 			<span class="animate-pulse">
-				Getting Data...
+				Loading Data...
 			</span>
 		</div>
 
-		<div v-if="errorMessage" class="wh-full flex flex-wrap bg-red-300">
+		<div v-if="errorMessage" class="wh-full flex flex-wrap justify-center p-3 bg-red-300">
 			{{ errorMessage }}
 		</div>
 
@@ -38,10 +38,7 @@ const limit = 5
 const isLoading = ref(false);
 const errorMessage = ref(null)
 
-const AccData = computed(() => {
-	ACC_STORE.Filter()
-	return ACC_STORE.DATA_FILTERED.slice(0, currentLimit.value)
-})
+const AccData = computed(() => ACC_STORE.FILTERED.slice(0, currentLimit.value))
 
 // Actions
 const Fetch = async () => {
@@ -61,7 +58,7 @@ const Fetch = async () => {
 
 const ScrollHandler = (e) => {
 	if (listEl.value.getBoundingClientRect().bottom < window.innerHeight) {
-		if (currentLimit.value < ACC_STORE.DATA_FILTERED.length) {
+		if (currentLimit.value < ACC_STORE.FILTERED.length) {
 			currentLimit.value += limit
 		}
 	}

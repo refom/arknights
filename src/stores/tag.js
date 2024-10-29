@@ -5,9 +5,18 @@ import { GetApi, STATUS, END_API } from "@/assets/js/api";
 const useTagStore = defineStore("tag", () => {
 	// States
 	const DATA = ref([])
+	const SEARCH_TAG = ref([])
 
 	// Actions
 	const GetById = (id) => DATA.value.find((tag) => tag.id === id)
+
+	const AddSearchTag = (id) => {
+		if (SEARCH_TAG.value.includes(id)) {
+			SEARCH_TAG.value = SEARCH_TAG.value.filter((tag) => tag !== id)
+			return
+		}
+		SEARCH_TAG.value.push(id)
+	}
 
 	const GetTags = (tagList) => {
 		const temp = tagList.map((id) => GetById(id))
@@ -21,6 +30,9 @@ const useTagStore = defineStore("tag", () => {
 	}
 
 	return {
+		DATA,
+		SEARCH_TAG,
+		AddSearchTag,
 		GetTags,
 		GetById,
 		Fetch,

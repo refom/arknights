@@ -59,7 +59,7 @@
 
 			<div
 				v-for="tag in Tags"
-				:class="$rarityToStyle(tag.rarity)"
+				:class="RarityToStyle(tag.rarity)"
 				class="flex items-center rounded px-1 font-oxanium font-medium text-primary">
 				<ITag class="h-5 w-5" />
 				{{ tag.name }}
@@ -69,13 +69,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue"
+import { ref, computed, inject } from "vue"
 import { useNotifStore } from "@/stores/notification"
 import { useOperatorStore } from "@/stores/operator"
 import { useTagStore } from "@/stores/tag"
 
 // Components
 import OperatorAvatar from "./OperatorAvatar.vue"
+
+// Utils
+const { RarityToStyle } = inject("utils")
 
 // Props
 const PROPS = defineProps({

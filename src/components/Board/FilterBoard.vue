@@ -1,7 +1,8 @@
 <template>
-	<div class="wh-full flex flex-col bg-bismark-900">
+	<div
+		class="wh-full flex flex-col gap-3 bg-bismark-900 pt-3">
 		<!-- Sort by -->
-		<div class="my-3 flex h-10 w-full items-center gap-3 px-3 font-oxanium">
+		<div class="flex h-10 w-full items-center gap-3 px-3 font-oxanium">
 			<div class="flex h-full items-center rounded bg-bismark-950 px-1">
 				<ISort class="h-7 w-7" />
 				<span class="mr-1 flex flex-col font-medium leading-none">
@@ -33,8 +34,38 @@
 			</button>
 		</div>
 
+		<!-- Six Star Count -->
+		<div class="flex w-full justify-center gap-3 px-3">
+			<button
+				@click="ACC_STORE.SetSixLength(1)"
+				:class="ActiveSixLength(1)"
+				class="flex justify-center rounded px-1 font-medium text-primary transition-all">
+				1 x 6
+				<IStar class="h-5 w-5" />
+			</button>
+			<button
+				@click="ACC_STORE.SetSixLength(2)"
+				:class="ActiveSixLength(2)"
+				class="flex justify-center rounded px-1 font-medium text-primary transition-all">
+				2 x 6
+				<IStar class="h-5 w-5" />
+			</button>
+		</div>
+
+		<!-- Tags -->
+		<div class="flex flex-wrap w-full justify-center gap-3 px-3">
+			<button
+				v-for="tag in TAG_STORE.DATA"
+				@click="TAG_STORE.AddSearchTag(tag.id)"
+				:class="ActiveTag(tag)"
+				class="flex items-center rounded px-1 font-oxanium font-medium text-primary transition-all">
+				<ITag class="w-5 h-5" />
+				{{ tag.name }}
+			</button>
+		</div>
+
 		<!-- Operator -->
-		<div class="flex max-h-[30vh] w-full flex-col gap-3 px-3">
+		<div class="flex max-h-[37vh] w-full flex-col gap-3 px-3">
 			<!-- Search -->
 			<div class="flex h-10 w-full gap-1">
 				<input
@@ -63,20 +94,20 @@
 
 			<!-- List Operator -->
 			<SlideUpT direction="left">
-				<div v-if="showOperator" class="flex w-full flex-col gap-1">
+				<div v-if="showOperator" class="flex wh-full flex-col gap-1 overflow-hidden">
 					<div class="flex w-full gap-1">
 						<button
 							v-for="i in 6"
 							@click="OPERATOR_STORE.SetFilterStar(i)"
-							:class="$rarityToStyle(i)"
-							class="light-mode wh-full flex items-center justify-center rounded active:opacity-70">
+							:class="ActiveFilterStar(i)"
+							class="light-mode wh-full flex justify-center rounded transition-all">
 							<IStar class="h-5 w-5" />
 							{{ i }}
 						</button>
 					</div>
 
 					<div
-						class="flex max-h-[30vh] flex-wrap w-full overflow-y-auto overflow-x-hidden justify-center rounded bg-bismark-950 gap-1">
+						class="flex wh-full flex-wrap justify-center gap-1 overflow-y-auto overflow-x-hidden rounded bg-bismark-950">
 						<OperatorCheckbox
 							v-if="FilteredOperator.length"
 							class="max-w-16 ring ring-light"
@@ -85,39 +116,43 @@
 							:operator="op" />
 						<OperatorCheckbox
 							class="max-w-16"
-							v-for="(op, index) in OPERATOR_STORE.Filtered"
+							v-for="(op, index) in OPERATOR_STORE.FILTERED"
 							:key="op.id + index"
 							:operator="op" />
 					</div>
 				</div>
 			</SlideUpT>
 		</div>
-
-		<!-- Tags -->
 	</div>
 </template>
 
 <script setup>
-import { ref, computed, watch } from "vue"
+import { ref, computed, watch, inject } from "vue"
 import { useAccStore } from "@/stores/acc"
 import { useOperatorStore } from "@/stores/operator"
+import { useTagStore } from "@/stores/tag"
 
 import SlideUpT from "@transitions/SlideUpT.vue"
 import OperatorCheckbox from "./OperatorCheckbox.vue"
 
+// Utils
+const { RarityToStyle } = inject("utils")
+
 // Stores
 const ACC_STORE = useAccStore()
 const OPERATOR_STORE = useOperatorStore()
+const TAG_STORE = useTagStore()
 
 // Variables
 const showOperator = ref(false)
 
 // Getters
-const FilteredOperator = computed(() => {
-	// ACC_STORE.Filter()
-	return OPERATOR_STORE.ListIdToObj(OPERATOR_STORE.SEARCH_OPERATOR)
-})
+const FilteredOperator = computed(() => OPERATOR_STORE.ListIdToObj(OPERATOR_STORE.SEARCH_OPERATOR))
 const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")
 const ActiveSort = (value) =>
 	value ? "bg-rare-five text-primary" : "bg-bismark-950"
+const ActiveSixLength = (length) =>
+	ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light" : "bg-rare-six"
+const ActiveTag = (tag) => TAG_STORE.SEARCH_TAG.includes(tag.id) ? "bg-light" : RarityToStyle(tag.rarity)
+const ActiveFilterStar = (star) => OPERATOR_STORE.FILTER_STAR === star ? "bg-light" : RarityToStyle(star)
 </script>

@@ -10,7 +10,6 @@ import { useTagStore } from "@/stores/tag"
 const useAccStore = defineStore("acc", () => {
 	// States
 	const DATA = ref([])
-	const DATA_FILTERED = ref([])
 	const SORT_PROPS = ref({
 		new: {
 			active: false,
@@ -22,19 +21,50 @@ const useAccStore = defineStore("acc", () => {
 		},
 	})
 	const SEARCH_KEYWORD = ref("")
+	const SEARCH_SIX_LENGTH = ref(0)
+
+	// Getters
+	const FILTERED = computed(() => {
+		const OPERATOR_STORE = useOperatorStore()
+		const TAG_STORE = useTagStore()
+		let temp = DATA.value
+
+		if (OPERATOR_STORE.SEARCH_OPERATOR.length) {
+			temp = temp.filter((acc) => OPERATOR_STORE.SEARCH_OPERATOR.some((op) => acc.operator.includes(op)))
+		}
+
+		if (SEARCH_SIX_LENGTH.value) {
+			temp = temp.filter((acc) => acc.six_op_length === SEARCH_SIX_LENGTH.value)
+		}
+
+		if (TAG_STORE.SEARCH_TAG.length) {
+			temp = temp.filter((acc) => TAG_STORE.SEARCH_TAG.every((tag) => acc.tag.includes(tag)))
+		}
+
+		if (SEARCH_KEYWORD.value) {
+			temp = temp.filter((acc) => 
+				acc.id.toLowerCase().includes(SEARCH_KEYWORD.value.toLowerCase()) ||
+				acc.operator.map((op) => OPERATOR_STORE.GetById(op).name.toLowerCase()).includes(SEARCH_KEYWORD.value.toLowerCase()) ||
+				acc.tag.map((tag) => TAG_STORE.GetById(tag).name.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase()).includes(SEARCH_KEYWORD.value.toLowerCase())
+			)
+		}
+
+		return temp
+	})
 
 	// Actions
 	const ClearSearchKeyword = () => SEARCH_KEYWORD.value = ""
+	const SetSixLength = (length) => SEARCH_SIX_LENGTH.value = (SEARCH_SIX_LENGTH.value === length) ? 0 : length
 
 	const Fetch = async () => {
 		const { status, data, message } = await GetApi(END_API.acc)
 		if (status === STATUS.BAD) return console.error(message)
-		DATA_FILTERED.value = DATA.value = data
+		DATA.value = data
 		Sort()
 	}
 
 	const Sort = () => {
-		DATA_FILTERED.value = DATA_FILTERED.value.sort((a, b) => {
+		DATA.value = DATA.value.sort((a, b) => {
 			const aDate = new Date(a.created_at)
 			const bDate = new Date(b.created_at)
 
@@ -58,33 +88,15 @@ const useAccStore = defineStore("acc", () => {
 		Sort()
 	}
 
-	const Filter = () => {
-		const OPERATOR_STORE = useOperatorStore()
-		const TAG_STORE = useTagStore()
-		let temp = DATA.value
-
-		if (OPERATOR_STORE.SEARCH_OPERATOR.length) {
-			temp = temp.filter((acc) => OPERATOR_STORE.SEARCH_OPERATOR.some((op) => acc.operator.includes(op)))
-		}
-
-		if (SEARCH_KEYWORD.value) {
-			temp = temp.filter((acc) => 
-				acc.id.toLowerCase().includes(SEARCH_KEYWORD.value.toLowerCase()) ||
-				acc.operator.map((op) => OPERATOR_STORE.GetById(op).name.toLowerCase()).includes(SEARCH_KEYWORD.value.toLowerCase()) ||
-				acc.tag.map((tag) => TAG_STORE.GetById(tag).name.toLowerCase()).includes(SEARCH_KEYWORD.value.toLowerCase())
-			)
-		}
-		DATA_FILTERED.value = temp
-	}
-
 	return {
-		DATA_FILTERED,
 		SORT_PROPS,
 		SEARCH_KEYWORD,
+		SEARCH_SIX_LENGTH,
+		FILTERED,
 		ClearSearchKeyword,
+		SetSixLength,
 		Fetch,
 		SortBy,
-		Filter,
 	}
 })
 
