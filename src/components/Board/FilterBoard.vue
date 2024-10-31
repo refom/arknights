@@ -77,7 +77,7 @@
 
 				<!-- Clear Button -->
 				<button
-					@click="ACC_STORE.ClearSearchKeyword"
+					@click="ClearFilter"
 					class="light-mode flex w-14 items-center rounded px-1 active:bg-light/50">
 					<IClose class="wh-full" />
 				</button>
@@ -154,4 +154,14 @@ const ActiveSixLength = (length) =>
 	ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light" : "bg-rare-six"
 const ActiveTag = (tag) => TAG_STORE.SEARCH_TAG.includes(tag.id) ? "bg-light" : RarityToStyle(tag.rarity)
 const ActiveFilterStar = (star) => OPERATOR_STORE.FILTER_STAR === star ? "bg-light" : RarityToStyle(star)
+
+// Actions
+const ClearFilter = () => {
+	ACC_STORE.ResetSort()
+	ACC_STORE.ClearSearchKeyword()
+	ACC_STORE.SetSixLength(0)
+	OPERATOR_STORE.SetFilterStar(0)
+	OPERATOR_STORE.ClearSearchOperator()
+	TAG_STORE.ClearSearchTag()
+}
 </script>
