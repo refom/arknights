@@ -12,12 +12,6 @@
 				<div
 					v-if="showHow"
 					class="flex h-full w-full flex-col gap-3 rounded bg-bismark-950 p-3">
-					<!-- 
-					 - Lihat-lihat akun yang kamu mau
-					 - Tekan copy icon atau akun id untuk mengcopy informasi akun
-					 - Hubungi aku melalu discord atau itemku
-					 - Tunggu aku membalas pesanmu untuk informasi lebih lanjut
-					 -->
 					<div class="flex w-full gap-2">
 						<IInfoCircle class="h-5 w-5" />
 						<div class="w-full">
@@ -84,7 +78,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { ref, inject } from "vue"
 
 // Components
 import SlideUpT from "@transitions/SlideUpT.vue"
@@ -95,28 +89,5 @@ import OperatorAvatar from "@/components/Acc/OperatorAvatar.vue"
 const showAcc = ref(false)
 const showHow = ref(false)
 
-const dummyAcc = {
-	id: "This_is_Acc_ID",
-	operator: [
-		"example",
-		"ela",
-		"ascalon",
-		"amiya",
-		"mint",
-		"gavial",
-		"cuora",
-		"kroos",
-		"melantha",
-	],
-	tag: ["1iai7d0dv0d47681543cb79", "Tag"],
-	story: "Story-Chapter",
-	created_at: Date.now(),
-	updated_at: Date.now(),
-}
-
-const dummyOperator = {
-	id: "amiya",
-	name: "Operator",
-	rarity: 5,
-}
+const { dummyAcc, dummyOperator } = inject("utils")
 </script>

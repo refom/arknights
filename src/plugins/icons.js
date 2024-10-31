@@ -14,6 +14,7 @@ import Close from "@icons/Close.vue"
 import Heart from "@icons/Heart.vue"
 import Thumbtack from "@icons/Thumbtack.vue"
 import InfoCircle from "@icons/InfoCircle.vue"
+import ProfileCard from "@icons/ProfileCard.vue"
 
 export default {
 	install: (app, options) => {
@@ -33,5 +34,6 @@ export default {
 		app.component("IHeart", Heart)
 		app.component("IThumbtack", Thumbtack)
 		app.component("IInfoCircle", InfoCircle)
+		app.component("IProfileCard", ProfileCard)
 	},
 }

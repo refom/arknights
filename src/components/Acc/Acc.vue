@@ -1,9 +1,9 @@
 <template>
-	<div class="wh-full flex flex-col items-center p-3" ref="listEl">
+	<div class="wh-full flex flex-col items-center p-3 xl:w-2/3" ref="listEl">
 		<div
 			v-if="isLoading"
 			class="wh-full flex flex-col items-center justify-center">
-			<IRefresh class="h-1/2 w-1/2 animate-spin" />
+			<IRefresh class="h-1/3 w-1/3 animate-spin" />
 			<span class="animate-pulse"> Loading Data... </span>
 		</div>
 
@@ -15,8 +15,8 @@
 
 		<div
 			v-if="AccData"
-			class="wh-full flex flex-col items-center justify-center gap-3 md:w-3/4 xl:w-1/2">
-			<AccCard v-for="acc in AccData" :acc="acc" />
+			class="wh-full flex flex-col items-center justify-center gap-3 md:w-3/4 xl:w-2/3">
+			<AccCard v-for="acc in AccData" :acc="acc" :key="acc.id" />
 		</div>
 	</div>
 </template>
@@ -63,7 +63,7 @@ const Fetch = async () => {
 }
 
 const ScrollHandler = (e) => {
-	if (listEl.value.getBoundingClientRect().bottom < window.innerHeight) {
+	if (listEl.value.getBoundingClientRect().bottom <= window.innerHeight) {
 		if (currentLimit.value < ACC_STORE.FILTERED.length) {
 			currentLimit.value += limit
 		}

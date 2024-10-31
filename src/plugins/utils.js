@@ -23,11 +23,38 @@ const OpIdToImg = (id) => {
 	return "/avatar/" + id + ".png"
 }
 
+const dummyAcc = {
+	id: "This_is_Acc_ID",
+	operator: [
+		"example",
+		"ela",
+		"ascalon",
+		"amiya",
+		"mint",
+		"gavial",
+		"cuora",
+		"kroos",
+		"melantha",
+	],
+	tag: ["1iai7d0dv0d47681543cb79", "Tag"],
+	story: "Story-Chapter",
+	created_at: Date.now(),
+	updated_at: Date.now(),
+}
+
+const dummyOperator = {
+	id: "amiya",
+	name: "Operator",
+	rarity: 5,
+}
+
 export default {
 	install: (app, options) => {
 		app.provide("utils", {
 			RarityToStyle,
 			OpIdToImg,
+			dummyAcc,
+			dummyOperator,
 		})
 	},
 }

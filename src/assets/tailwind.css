@@ -14,7 +14,7 @@
 	}
 
 	.light-mode {
-		@apply text-primary bg-light
+		@apply text-bismark-950 bg-light
 	}
 
 	.wh-full {

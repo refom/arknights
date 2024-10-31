@@ -39,14 +39,14 @@
 			<button
 				@click="ACC_STORE.SetSixLength(1)"
 				:class="ActiveSixLength(1)"
-				class="flex justify-center rounded px-1 font-medium text-primary transition-all">
+				class="flex justify-center rounded px-1 font-medium text-bismark-950 transition-all">
 				1 x 6
 				<IStar class="h-5 w-5" />
 			</button>
 			<button
 				@click="ACC_STORE.SetSixLength(2)"
 				:class="ActiveSixLength(2)"
-				class="flex justify-center rounded px-1 font-medium text-primary transition-all">
+				class="flex justify-center rounded px-1 font-medium text-bismark-950 transition-all">
 				2 x 6
 				<IStar class="h-5 w-5" />
 			</button>
@@ -58,7 +58,7 @@
 				v-for="tag in TAG_STORE.DATA"
 				@click="TAG_STORE.AddSearchTag(tag.id)"
 				:class="ActiveTag(tag)"
-				class="flex items-center rounded px-1 font-oxanium font-medium text-primary transition-all">
+				class="flex items-center rounded px-1 font-oxanium font-medium text-bismark-950 transition-all">
 				<ITag class="w-5 h-5" />
 				{{ tag.name }}
 			</button>
@@ -73,7 +73,7 @@
 					type="text"
 					name="search"
 					placeholder="Search Acc..."
-					class="w-full rounded bg-light p-1 text-primary placeholder-primary/50 hover:bg-apricot-100" />
+					class="w-full rounded bg-light p-1 text-bismark-950 placeholder-bismark-950/50 hover:bg-apricot-100" />
 
 				<!-- Clear Button -->
 				<button
@@ -149,7 +149,7 @@ const showOperator = ref(false)
 const FilteredOperator = computed(() => OPERATOR_STORE.ListIdToObj(OPERATOR_STORE.SEARCH_OPERATOR))
 const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")
 const ActiveSort = (value) =>
-	value ? "bg-rare-five text-primary" : "bg-bismark-950"
+	value ? "bg-rare-five text-bismark-950" : "bg-bismark-950"
 const ActiveSixLength = (length) =>
 	ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light" : "bg-rare-six"
 const ActiveTag = (tag) => TAG_STORE.SEARCH_TAG.includes(tag.id) ? "bg-light" : RarityToStyle(tag.rarity)

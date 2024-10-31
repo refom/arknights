@@ -59,7 +59,7 @@ const CloseNotif = () => {
 const StatusBg = computed(() => {
 	switch (PROPS.item.status) {
 		case "ok":
-			return "bg-green-500 lg:hover:bg-green-600 active:bg-green-600 text-primary"
+			return "bg-green-500 lg:hover:bg-green-600 active:bg-green-600 text-bismark-950"
 		case "bad":
 			return "bg-red-500 lg:hover:bg-red-600 active:bg-red-600 text-light"
 		default:

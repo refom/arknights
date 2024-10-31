@@ -6,13 +6,13 @@
 			<div class="flex h-full items-center gap-3">
 				<span
 					@click="CopyAcc"
-					class="flex h-full items-center font-oxanium text-lg font-medium">
+					class="flex h-full items-center font-oxanium text-lg font-medium cursor-pointer hover:light-mode rounded px-1">
 					#{{ acc.id.toUpperCase() }}
 				</span>
 
 				<span
 					v-if="IsNew"
-					class="flex animate-pulse items-center rounded bg-rare-five pl-1 pr-2 font-oxanium text-sm font-medium text-primary">
+					class="flex animate-pulse items-center rounded bg-rare-five pl-1 pr-2 font-oxanium text-sm font-medium text-bismark-950">
 					<IStar class="h-4 w-4" />
 					NEW
 				</span>
@@ -23,14 +23,14 @@
 				<!-- Copy ID -->
 				<button
 					@click="CopyAcc"
-					class="light-mode h-full min-w-7 cursor-pointer select-none rounded transition-all active:bg-light/50">
+					class="bg-light text-bismark-950 h-full min-w-7 cursor-pointer select-none rounded transition-all active:bg-light/50 hover:bg-light/50">
 					<ICopy class="wh-full" />
 				</button>
 
 				<!-- Show All Operator -->
 				<button
 					@click="showOperator = !showOperator"
-					class="light-mode h-full min-w-7 cursor-pointer select-none rounded transition-all active:bg-light/50">
+					class="bg-light text-bismark-950 h-full min-w-7 cursor-pointer select-none rounded transition-all active:bg-light/50 hover:bg-light/50">
 					<ICaretDown
 						:class="ChangeCaret"
 						class="wh-full transition-all duration-500" />
@@ -51,7 +51,7 @@
 		<!-- Details -->
 		<div class="my-1 flex w-full flex-wrap items-center gap-2">
 			<span
-				class="flex items-center rounded light-mode pr-2 font-oxanium font-medium">
+				class="flex items-center rounded bg-light text-bismark-950 pr-2 font-oxanium font-medium">
 				<ICaretRight class="h-5 w-5" />
 				{{ acc.story.toUpperCase() }}
 			</span>
@@ -59,7 +59,7 @@
 			<div
 				v-for="tag in Tags"
 				:class="RarityToStyle(tag.rarity)"
-				class="flex items-center rounded px-1 font-oxanium font-medium text-primary">
+				class="flex items-center rounded px-1 font-oxanium font-medium text-bismark-950">
 				<ITag class="h-5 w-5" />
 				{{ tag.name }}
 			</div>

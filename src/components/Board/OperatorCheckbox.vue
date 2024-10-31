@@ -15,7 +15,7 @@
 			class="wh-full object-cover" />
 
 		<p
-			class="w-full overflow-hidden text-wrap text-center text-xs font-medium text-primary">
+			class="w-full overflow-hidden text-wrap text-center text-xs font-medium text-bismark-950">
 			{{ operator.name }}
 		</p>
 	</label>

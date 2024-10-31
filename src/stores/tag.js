@@ -7,6 +7,9 @@ const useTagStore = defineStore("tag", () => {
 	const DATA = ref([])
 	const SEARCH_TAG = ref([])
 
+	// Getters
+	const GetSorted = computed(() => DATA.value.sort((a, b) => b.rarity - a.rarity))
+
 	// Actions
 	const GetById = (id) =>
 		DATA.value.find((tag) => tag.id === id) ||
@@ -38,6 +41,7 @@ const useTagStore = defineStore("tag", () => {
 	return {
 		DATA,
 		SEARCH_TAG,
+		GetSorted,
 		AddSearchTag,
 		GetTags,
 		GetById,

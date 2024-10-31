@@ -1,18 +1,19 @@
 <template>
 	<div
-		class="sticky bottom-0 flex max-h-[70vh] w-full flex-col overflow-hidden rounded-t">
+		class="sticky bottom-0 z-10 order-last flex max-h-[70vh] w-full flex-col overflow-hidden rounded-t
+		xl:hidden">
 		<!-- Board -->
 		<SlideUpT duration="300">
 			<div
 				v-if="IsOpen"
-				class="flex w-full flex-col bg-bismark-900 overflow-y-auto">
+				class="flex w-full flex-col overflow-y-auto bg-bismark-900">
 				<!-- Board Content -->
-				<div class="flex wh-full">
+				<div class="wh-full flex">
 					<!-- Info Board -->
 					<SlideUpT direction="right" :opacity="true">
 						<InfoBoard v-if="CurrentTab === 0" />
 					</SlideUpT>
-	
+
 					<!-- Filter Acc -->
 					<SlideUpT direction="left" :opacity="true">
 						<FilterBoard v-if="CurrentTab === 1" />
@@ -25,12 +26,12 @@
 					<button
 						@click="CurrentTab = 0"
 						class="wh-full py-1 active:bg-bismark-950">
-						<IInfo class="w-full h-2/3" />
+						<IInfo class="h-2/3 w-full" />
 					</button>
 					<button
 						@click="CurrentTab = 1"
 						class="wh-full py-1 active:bg-bismark-950">
-						<IFilter class="w-full h-2/3" />
+						<IFilter class="h-2/3 w-full" />
 					</button>
 				</div>
 			</div>
@@ -38,11 +39,11 @@
 
 		<!-- Tab -->
 		<div
-			class="sticky bottom-0 flex h-16 w-full items-center justify-around bg-bismark-900">
+			class="sticky bottom-0 flex order-last h-16 w-full items-center justify-around bg-bismark-900">
 			<!-- Logo -->
 			<div
-				class="flex h-full w-full justify-center py-3 transition-all active:bg-bismark-950">
-				<img src="/icon.png" alt="icon" class="rounded-full" />
+				class="flex aspect-square h-full w-full justify-center items-center py-3 transition-all active:bg-bismark-950">
+				<img src="/icon.png" alt="icon" class="rounded-full h-full" />
 			</div>
 
 			<!-- Menu -->
@@ -55,12 +56,15 @@
 			</button>
 
 			<!-- Social Link -->
-			<div class="flex h-full w-full justify-center py-3">
-				<a href="#" class="flex w-full justify-center">
+			<div class="flex h-full w-full justify-center py-3
+				xl:max-h-24 xl:gap-10">
+				<a href="#" class="flex w-full justify-center
+					xl:w-auto">
 					<img src="/itemku.png" alt="itemku" class="h-full" />
 				</a>
 
-				<a href="#" class="flex w-full justify-center">
+				<a href="#" class="flex w-full justify-center
+					xl:w-auto">
 					<img src="/discord.png" alt="discord" class="h-full" />
 				</a>
 			</div>
