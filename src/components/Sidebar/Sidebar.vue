@@ -33,6 +33,14 @@
 				class="flex h-full items-center justify-center py-1 transition hover:bg-light hover:text-bismark-950">
 				<IFilter class="h-full" />
 			</button>
+
+			<div class="h-14 flex bg-bismark-950 items-center justify-center px-3 font-medium text-lg gap-2 select-none">
+				Found
+				<span class="text-rare-six">
+					{{ ACC_STORE.FILTERED.length }}
+				</span>
+				Acc
+			</div>
 		</div>
 
 		<div class="wh-full flex max-h-[70vh] overflow-hidden">
@@ -49,11 +57,13 @@
 <script setup>
 import { ref } from "vue"
 import { Itemku, Discord } from "@/assets/js/social.js"
+import { useAccStore } from "@/stores/acc"
 
 import InfoSidebar from "./InfoSidebar.vue"
 import FilterSidebar from "./FilterSidebar.vue";
 import SlideUpT from "@transitions/SlideUpT.vue"
 
+const ACC_STORE = useAccStore()
 const CurrentTab = ref(0)
 
 const ChangeTab = (value) => {
