@@ -58,12 +58,12 @@
 			<!-- Social Link -->
 			<div class="flex h-full w-full justify-center py-3
 				xl:max-h-24 xl:gap-10">
-				<a :href="Itemku.url" class="flex w-full justify-center
+				<a :href="Itemku.url" target="_blank" class="flex w-full justify-center
 					xl:w-auto">
 					<img :src="Itemku.icon" :alt="Itemku.name" class="h-full" />
 				</a>
 
-				<a :href="Discord.url" class="flex w-full justify-center
+				<a :href="Discord.url" target="_blank" class="flex w-full justify-center
 					xl:w-auto">
 					<img :src="Discord.icon" :alt="Discord.name" class="h-full" />
 				</a>

@@ -9,10 +9,10 @@
 				ARKNIGHTS
 			</span>
 			<div class="flex h-full items-center justify-center gap-5 p-3">
-				<a :href="Itemku.url" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
+				<a :href="Itemku.url" target="_blank" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
 					<img :src="Itemku.icon" :alt="Itemku.name" class="wh-full" />
 				</a>
-				<a :href="Discord.url" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
+				<a :href="Discord.url" target="_blank" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
 					<img :src="Discord.icon" :alt="Discord.name" class="wh-full" />
 				</a>
 			</div>

@@ -45,11 +45,11 @@
 						<IInfoCircle class="h-5 w-5 mt-1" />
 						<div class="w-full">
 							Contact me via
-							<a :href="Discord.url">
+							<a :href="Discord.url" target="_blank">
 								<img :src="Discord.icon" :alt="Discord.name" class="h-7 w-7 rounded inline">
 							</a>
 							or
-							<a :href="Itemku.url">
+							<a :href="Itemku.url" target="_blank">
 								<img :src="Itemku.icon" :alt="Itemku.name" class="h-7 w-7 rounded inline">
 							</a>
 						</div>

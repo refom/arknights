@@ -2,8 +2,8 @@
 	<div class="flex flex-col min-h-screen xl:flex-row">
 		<Sidebar v-if="!MOBILE_STORE.IsMobile" />
 		<Acc />
-		<Board v-if="MOBILE_STORE.IsMobile" />
 	</div>
+	<Board v-if="MOBILE_STORE.IsMobile" />
 </template>
 
 <script setup>
