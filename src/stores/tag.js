@@ -27,6 +27,10 @@ const useTagStore = defineStore("tag", () => {
 		SEARCH_TAG.value.push(id)
 	}
 
+	const ClearSearchTag = () => {
+		SEARCH_TAG.value = []
+	}
+
 	const GetTags = (tagList) => {
 		const temp = tagList.map((id) => GetById(id))
 		return temp.sort((a, b) => b.rarity - a.rarity)
@@ -43,6 +47,7 @@ const useTagStore = defineStore("tag", () => {
 		SEARCH_TAG,
 		GetSorted,
 		AddSearchTag,
+		ClearSearchTag,
 		GetTags,
 		GetById,
 		Fetch,

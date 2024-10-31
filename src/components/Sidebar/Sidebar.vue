@@ -9,11 +9,11 @@
 				ARKNIGHTS
 			</span>
 			<div class="flex h-full items-center justify-center gap-5 p-3">
-				<a href="#" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
-					<img src="/itemku.png" alt="itemku" class="wh-full" />
+				<a :href="Itemku.url" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
+					<img :src="Itemku.icon" :alt="Itemku.name" class="wh-full" />
 				</a>
-				<a href="#" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
-					<img src="/discord.png" alt="discord" class="wh-full" />
+				<a :href="Discord.url" class="aspect-square h-full hover:bg-bismark-950 transition-all hover:scale-110 rounded p-1">
+					<img :src="Discord.icon" :alt="Discord.name" class="wh-full" />
 				</a>
 			</div>
 		</div>
@@ -48,6 +48,8 @@
 
 <script setup>
 import { ref } from "vue"
+import { Itemku, Discord } from "@/assets/js/social.js"
+
 import InfoSidebar from "./InfoSidebar.vue"
 import FilterSidebar from "./FilterSidebar.vue";
 import SlideUpT from "@transitions/SlideUpT.vue"

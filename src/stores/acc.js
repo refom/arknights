@@ -88,6 +88,14 @@ const useAccStore = defineStore("acc", () => {
 		Sort()
 	}
 
+	const ResetSort = () => {
+		SORT_PROPS.value.new.active = false
+		SORT_PROPS.value.new.reverse = false
+		SORT_PROPS.value.operator.active = false
+		SORT_PROPS.value.operator.reverse = false
+		Sort()
+	}
+
 	return {
 		SORT_PROPS,
 		SEARCH_KEYWORD,
@@ -97,6 +105,7 @@ const useAccStore = defineStore("acc", () => {
 		SetSixLength,
 		Fetch,
 		SortBy,
+		ResetSort,
 	}
 })
 

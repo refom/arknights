@@ -36,17 +36,17 @@
 				<IInfoCircle class="mt-1 h-5 w-5" />
 				<div class="w-full">
 					Contact me via
-					<a href="#">
+					<a :href="Discord.url">
 						<img
-							src="/discord.png"
-							alt="Discord"
+							:src="Discord.icon"
+							:alt="Discord.name"
 							class="inline h-7 w-7 rounded" />
 					</a>
 					or
-					<a href="#">
+					<a :href="Itemku.url">
 						<img
-							src="/itemku.png"
-							alt="Itemku"
+							:src="Itemku.icon"
+							:alt="Itemku.name"
 							class="inline h-7 w-7 rounded" />
 					</a>
 				</div>
@@ -65,6 +65,8 @@
 
 <script setup>
 import { inject } from "vue"
+import { Itemku, Discord } from "@/assets/js/social.js"
+
 import AccCard from "@/components/Acc/AccCard.vue"
 import OperatorAvatar from "@/components/Acc/OperatorAvatar.vue"
 

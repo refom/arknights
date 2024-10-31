@@ -45,12 +45,12 @@
 						<IInfoCircle class="h-5 w-5 mt-1" />
 						<div class="w-full">
 							Contact me via
-							<a href="#">
-								<img src="/discord.png" alt="Discord" class="h-7 w-7 rounded inline">
+							<a :href="Discord.url">
+								<img :src="Discord.icon" :alt="Discord.name" class="h-7 w-7 rounded inline">
 							</a>
 							or
-							<a href="#">
-								<img src="/itemku.png" alt="Itemku" class="h-7 w-7 rounded inline">
+							<a :href="Itemku.url">
+								<img :src="Itemku.icon" :alt="Itemku.name" class="h-7 w-7 rounded inline">
 							</a>
 						</div>
 					</div>
@@ -79,6 +79,7 @@
 
 <script setup>
 import { ref, inject } from "vue"
+import { Itemku, Discord } from "@/assets/js/social.js"
 
 // Components
 import SlideUpT from "@transitions/SlideUpT.vue"

@@ -58,14 +58,14 @@
 			<!-- Social Link -->
 			<div class="flex h-full w-full justify-center py-3
 				xl:max-h-24 xl:gap-10">
-				<a href="#" class="flex w-full justify-center
+				<a :href="Itemku.url" class="flex w-full justify-center
 					xl:w-auto">
-					<img src="/itemku.png" alt="itemku" class="h-full" />
+					<img :src="Itemku.icon" :alt="Itemku.name" class="h-full" />
 				</a>
 
-				<a href="#" class="flex w-full justify-center
+				<a :href="Discord.url" class="flex w-full justify-center
 					xl:w-auto">
-					<img src="/discord.png" alt="discord" class="h-full" />
+					<img :src="Discord.icon" :alt="Discord.name" class="h-full" />
 				</a>
 			</div>
 		</div>
@@ -74,6 +74,7 @@
 
 <script setup>
 import { computed, ref } from "vue"
+import { Itemku, Discord } from "@/assets/js/social.js"
 
 // Components
 import SlideUpT from "@transitions/SlideUpT.vue"

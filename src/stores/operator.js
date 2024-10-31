@@ -38,6 +38,7 @@ const useOperatorStore = defineStore("operator", () => {
 			rarity: 6,
 		}
 	const SetFilterStar = (star) => FILTER_STAR.value = (FILTER_STAR.value === star) ? 0 : star
+	const ClearSearchOperator = () => SEARCH_OPERATOR.value = []
 
 	const ListIdToObj = (opList) => opList.map((id) => GetById(id))
 	const SortByRarity = (opList) => ListIdToObj(opList).sort((a, b) => b.rarity - a.rarity)
@@ -54,6 +55,7 @@ const useOperatorStore = defineStore("operator", () => {
 		FILTERED,
 		GetById,
 		SetFilterStar,
+		ClearSearchOperator,
 		SortByRarity,
 		ListIdToObj,
 		Fetch,

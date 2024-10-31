@@ -170,7 +170,10 @@ const ActiveFilterStar = (star) =>
 
 // Actions
 const ClearFilter = () => {
+	ACC_STORE.ResetSort()
 	ACC_STORE.ClearSearchKeyword()
+	ACC_STORE.SetSixLength(0)
+	OPERATOR_STORE.SetFilterStar(0)
 	OPERATOR_STORE.ClearSearchOperator()
 	TAG_STORE.ClearSearchTag()
 }
