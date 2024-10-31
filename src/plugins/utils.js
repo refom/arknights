@@ -20,7 +20,7 @@ const RarityToStyle = (rarity) => {
 
 const OpIdToImg = (id) => {
 	if (!id) return "icon.png"
-	return "/avatar/" + id + ".png"
+	return "./avatar/" + id + ".png"
 }
 
 const dummyAcc = {
