@@ -12,7 +12,7 @@
 		<img
 			:src="OpIdToImg(operator.id)"
 			:alt="operator.name"
-			class="wh-full object-cover" />
+			class="max-h-20 object-cover" />
 
 		<p
 			class="w-full overflow-hidden text-wrap text-center text-xs font-medium text-bismark-950">

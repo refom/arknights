@@ -18,9 +18,11 @@ const RarityToStyle = (rarity) => {
 	}
 }
 
+const image_path = "https://raw.githubusercontent.com/refom/arknek-backend/refs/heads/main/avatar/"
+
 const OpIdToImg = (id) => {
 	if (!id) return "icon.png"
-	return "./avatar/" + id + ".png"
+	return image_path + id + ".png"
 }
 
 const dummyAcc = {
