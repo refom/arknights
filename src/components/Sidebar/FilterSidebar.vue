@@ -58,8 +58,15 @@
 			</button>
 		</div>
 
-		<!-- Six Star Count -->
+		<!-- Tag -->
 		<div class="flex h-10 w-full gap-1 px-3 font-oxanium justify-center">
+			<button
+				@click="ACC_STORE.SetOnlyTag"
+				:class="ActiveTag(ACC_STORE.SEARCH_ONLY_TAG)"
+				class="font-bold p-2 active:dark-mode font-poppins hover:light-mode">
+				&&
+			</button>
+
 			<TagCheckbox
 				v-model="ACC_STORE.SEARCH_TAG"
 				v-for="tag in TagChecked"
@@ -153,6 +160,7 @@ const OperatorList = computed(() => {
 // Actions
 const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")
 const ActiveSort = (value) => (value ? "bg-light text-bismark-950" : "")
+const ActiveTag = (value) => (value ? "light-mode" : "")
 const ActiveSixLength = (length) =>
 	ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light text-bismark-950" : ""
 const ActiveFilterStar = (value) =>

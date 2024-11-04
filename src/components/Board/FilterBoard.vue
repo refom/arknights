@@ -1,6 +1,14 @@
 <template>
 	<div
 		class="w-full flex flex-col gap-3 mt-3 px-3">
+		<div class="flex w-full justify-center font-semibold gap-2">
+			Found
+			<span class="text-rare-six">
+				{{ ACC_STORE.FILTERED.length }}
+			</span>
+			Acc
+		</div>
+
 		<!-- Sort by -->
 		<div class="flex flex-col w-full gap-1 justify-center font-oxanium">
 			<button
@@ -55,30 +63,39 @@
 						<button
 							@click="ACC_STORE.SetSixLength(1)"
 							:class="ActiveSixLength(1)"
-							class="flex w-full h-full justify-center gap-1 py-1 transition-all">
+							class="flex w-full h-full justify-center gap-1 py-2 transition-all">
 							1
 							<IStar class="h-5 w-5 text-rare-six" />
 						</button>
 						<button
 							@click="ACC_STORE.SetSixLength(2)"
 							:class="ActiveSixLength(2)"
-							class="flex w-full h-full justify-center gap-1 py-1 transition-all">
+							class="flex w-full h-full justify-center gap-1 py-2 transition-all">
 							2
 							<IStar class="h-5 w-5 text-rare-six" />
 						</button>
 					</div>
 	
 					<!-- Tags -->
-					<div class="flex flex-wrap w-full justify-center gap-1 font-oxanium font-medium">
-						<TagCheckbox
-							v-model="ACC_STORE.SEARCH_TAG"
-							v-for="tag in TagChecked"
-							:tag="tag"
-							class="ring ring-light" />
-						<TagCheckbox
-							v-model="ACC_STORE.SEARCH_TAG"
-							v-for="tag in TagList"
-							:tag="tag" />
+					<div class="flex">
+						<button
+							@click="ACC_STORE.SetOnlyTag"
+							:class="ActiveTag(ACC_STORE.SEARCH_ONLY_TAG)"
+							class="font-bold p-2 active:dark-mode">
+							&&
+						</button>
+
+						<div class="flex flex-wrap w-full justify-center gap-1 font-oxanium font-medium">
+							<TagCheckbox
+								v-model="ACC_STORE.SEARCH_TAG"
+								v-for="tag in TagChecked"
+								:tag="tag"
+								class="ring ring-light" />
+							<TagCheckbox
+								v-model="ACC_STORE.SEARCH_TAG"
+								v-for="tag in TagList"
+								:tag="tag" />
+						</div>
 					</div>
 				</div>
 			</SlideT>
@@ -195,8 +212,9 @@ const OperatorList = computed(() => {
 
 // Actions
 const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")
-const ActiveSort = (value) => value ? "bg-light text-bismark-950" : ""
-const ActiveSixLength = (length) => ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light text-bismark-950" : ""
+const ActiveSort = (value) => value ? "bg-light text-bismark-950" : "border"
+const ActiveTag = (value) => value ? "light-mode" : "border"
+const ActiveSixLength = (length) => ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light text-bismark-950" : "border"
 const ActiveFilterStar = (value) => filterStar.value === value ? "bg-light" : RarityToStyle(value)
 const SetFilterStar = (star) => (filterStar.value = filterStar.value === star ? 0 : star)
 </script>

@@ -9,6 +9,7 @@ const useAccStore = defineStore("acc", () => {
 	// States
 	const DATA = ref([])
 
+	const SEARCH_ONLY_TAG = ref(false)
 	const SEARCH_TAG = ref([])
 	const SEARCH_OPERATOR = ref([])
 	const SEARCH_SIX_LENGTH = ref(0)
@@ -44,7 +45,11 @@ const useAccStore = defineStore("acc", () => {
 		}
 
 		if (SEARCH_TAG.value.length) {
-			temp = temp.filter((acc) => SEARCH_TAG.value.every((tag) => acc.tag.includes(tag)))
+			if (SEARCH_ONLY_TAG.value) {
+				temp = temp.filter((acc) => acc.tag.sort().join(",") === SEARCH_TAG.value.sort().join(","))
+			} else {
+				temp = temp.filter((acc) => SEARCH_TAG.value.every((tag) => acc.tag.includes(tag)))
+			}
 		}
 
 		const OPERATOR_STORE = useOperatorStore()
@@ -63,6 +68,7 @@ const useAccStore = defineStore("acc", () => {
 
 	// Actions
 	const SetSixLength = (length) => SEARCH_SIX_LENGTH.value = SEARCH_SIX_LENGTH.value === length ? 0 : length
+	const SetOnlyTag = () => SEARCH_ONLY_TAG.value = !SEARCH_ONLY_TAG.value
 	const ClearSearchKeyword = () => SEARCH_KEYWORD.value = ""
 	const ClearSearchOperator = () => SEARCH_OPERATOR.value = []
 	const ResetSearch = () => {
@@ -96,8 +102,10 @@ const useAccStore = defineStore("acc", () => {
 		SEARCH_OPERATOR,
 		SORT_NEW,
 		SORT_SIX_LENGTH,
+		SEARCH_ONLY_TAG,
 		ClearSearchKeyword,
 		SetSixLength,
+		SetOnlyTag,
 		SortNew,
 		SortSixLength,
 		Fetch,
