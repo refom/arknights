@@ -13,9 +13,7 @@ app.use(router)
 
 // Plugins
 import icons from '@/plugins/icons'
-import utils from '@/plugins/utils'
 
 app.use(icons)
-app.use(utils)
 
 app.mount('#app')

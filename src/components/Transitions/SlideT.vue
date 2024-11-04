@@ -14,8 +14,8 @@
 import { computed } from "vue"
 const PROPS = defineProps({
 	duration: {
-		type: String,
-		default: "300",
+		type: Number,
+		default: 300,
 	},
 	direction: {
 		type: String,
@@ -29,15 +29,15 @@ const PROPS = defineProps({
 
 const Duration = computed(() => {
 	switch (PROPS.duration) {
-		case "100":
+		case 100:
 			return "duration-100"
-		case "300":
+		case 300:
 			return "duration-300"
-		case "500":
+		case 500:
 			return "duration-500"
-		case "700":
+		case 700:
 			return "duration-700"
-		case "1000":
+		case 1000:
 			return "duration-1000"
 		default:
 			return "duration-300"

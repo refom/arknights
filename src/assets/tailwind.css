@@ -17,6 +17,10 @@
 		@apply text-bismark-950 bg-light
 	}
 
+	.dark-mode {
+		@apply text-light bg-bismark-950
+	}
+
 	.wh-full {
 		@apply w-full h-full
 	}

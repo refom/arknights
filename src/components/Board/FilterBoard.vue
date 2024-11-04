@@ -1,71 +1,91 @@
 <template>
 	<div
-		class="wh-full flex flex-col gap-3 pt-3">
+		class="w-full flex flex-col gap-3 mt-3 px-3">
 		<!-- Sort by -->
-		<div class="flex h-10 w-full items-center gap-3 px-3 font-oxanium">
-			<div class="flex h-full items-center rounded bg-bismark-950 px-1">
+		<div class="flex flex-col w-full gap-1 justify-center font-oxanium">
+			<button
+				@click="showSort = !showSort"
+				class="flex h-full py-1 items-center justify-center font-semibold light-mode w-full active:dark-mode transition">
 				<ISort class="h-7 w-7" />
-				<span class="mr-1 flex flex-col font-medium leading-none">
-					<p>Sort</p>
-					<p>by</p>
-				</span>
-			</div>
-
-			<button
-				@click="ACC_STORE.SortBy('new')"
-				:class="ActiveSort(ACC_STORE.SORT_PROPS.new.active)"
-				class="wh-full flex items-center justify-center gap-1 rounded px-3 transition-all">
-				<ICalendar class="h-7 w-7" />
-				New
-				<ICaretUp
-					:class="ChangeCaret(ACC_STORE.SORT_PROPS.new.reverse)"
-					class="h-5 w-5 transition-all" />
+				Sort by
 			</button>
 
-			<button
-				@click="ACC_STORE.SortBy('operator')"
-				:class="ActiveSort(ACC_STORE.SORT_PROPS.operator.active)"
-				class="wh-full flex items-center justify-center gap-1 rounded px-3 transition-all">
-				<IStar class="h-7 w-7" />
-				6
-				<ICaretUp
-					:class="ChangeCaret(ACC_STORE.SORT_PROPS.operator.reverse)"
-					class="h-5 w-5 transition-all" />
-			</button>
-		</div>
+			<SlideT direction="right" >
+				<div
+					v-if="showSort"
+					class="flex justify-center w-full gap-1">
+					<button
+						@click="ACC_STORE.SortNew"
+						:class="ActiveSort(!ACC_STORE.SORT_NEW)"
+						class="h-full w-full flex items-center justify-center py-1 transition-all">
+						<ICalendar class="h-7 w-7" />
+						<ICaretUp
+							:class="ChangeCaret(!ACC_STORE.SORT_NEW)"
+							class="h-7 w-7 transition-all" />
+					</button>
 
-		<!-- Six Star Count -->
-		<div class="flex w-full justify-center gap-3 px-3">
-			<button
-				@click="ACC_STORE.SetSixLength(1)"
-				:class="ActiveSixLength(1)"
-				class="flex justify-center rounded px-1 font-medium text-bismark-950 transition-all">
-				1 x 6
-				<IStar class="h-5 w-5" />
-			</button>
-			<button
-				@click="ACC_STORE.SetSixLength(2)"
-				:class="ActiveSixLength(2)"
-				class="flex justify-center rounded px-1 font-medium text-bismark-950 transition-all">
-				2 x 6
-				<IStar class="h-5 w-5" />
-			</button>
+					<button
+						@click="ACC_STORE.SortSixLength"
+						:class="ActiveSort(ACC_STORE.SORT_SIX_LENGTH.active)"
+						class="h-full w-full flex items-center justify-center py-1 transition-all">
+						<IStar class="h-7 w-7 text-rare-six" />
+						<ICaretUp
+							:class="ChangeCaret(ACC_STORE.SORT_SIX_LENGTH.reverse)"
+							class="h-5 w-5 transition-all" />
+					</button>
+				</div>
+			</SlideT>
 		</div>
 
 		<!-- Tags -->
-		<div class="flex flex-wrap w-full justify-center gap-3 px-3">
+		<div class="flex flex-col w-full justify-center gap-1">
 			<button
-				v-for="tag in TAG_STORE.DATA"
-				@click="TAG_STORE.AddSearchTag(tag.id)"
-				:class="ActiveTag(tag)"
-				class="flex items-center rounded px-1 font-oxanium font-medium text-bismark-950 transition-all">
-				<ITag class="w-5 h-5" />
-				{{ tag.name }}
+				@click="showTag = !showTag"
+				class="flex h-full py-1 items-center justify-center font-oxanium font-semibold light-mode w-full active:dark-mode transition">
+				<ITag class="h-7 w-7 p-1" />
+				Tags
 			</button>
+
+			<SlideT direction="right">
+				<div
+					v-if="showTag"
+					class="flex flex-col gap-1 justify-center w-full">
+					<!-- Six Star Length -->
+					<div class="flex justify-center w-full font-semibold">
+						<button
+							@click="ACC_STORE.SetSixLength(1)"
+							:class="ActiveSixLength(1)"
+							class="flex w-full h-full justify-center gap-1 py-1 transition-all">
+							1
+							<IStar class="h-5 w-5 text-rare-six" />
+						</button>
+						<button
+							@click="ACC_STORE.SetSixLength(2)"
+							:class="ActiveSixLength(2)"
+							class="flex w-full h-full justify-center gap-1 py-1 transition-all">
+							2
+							<IStar class="h-5 w-5 text-rare-six" />
+						</button>
+					</div>
+	
+					<!-- Tags -->
+					<div class="flex flex-wrap w-full justify-center gap-1 font-oxanium font-medium">
+						<TagCheckbox
+							v-model="ACC_STORE.SEARCH_TAG"
+							v-for="tag in TagChecked"
+							:tag="tag"
+							class="ring ring-light" />
+						<TagCheckbox
+							v-model="ACC_STORE.SEARCH_TAG"
+							v-for="tag in TagList"
+							:tag="tag" />
+					</div>
+				</div>
+			</SlideT>
 		</div>
 
 		<!-- Operator -->
-		<div class="flex max-h-[37vh] w-full flex-col gap-3 px-3">
+		<div class="flex max-h-[40vh] w-full flex-col gap-3">
 			<!-- Search -->
 			<div class="flex h-10 w-full gap-1">
 				<input
@@ -73,69 +93,70 @@
 					type="text"
 					name="search"
 					placeholder="Search Acc..."
-					class="w-full rounded bg-light p-1 text-bismark-950 placeholder-bismark-950/50 hover:bg-apricot-100" />
+					class="w-full appearance-none light-mode px-3 py-1 placeholder-bismark-950/50 hover:bg-apricot-100" />
 
 				<!-- Clear Button -->
 				<button
-					@click="ClearFilter"
-					class="light-mode flex w-14 items-center rounded px-1 active:bg-light/50">
-					<IClose class="wh-full" />
+					@click="ACC_STORE.ResetSearch"
+					class="light-mode flex justify-center w-14 items-center p-1 active:dark-mode transition-all">
+					<IClose class="h-7 w-7" />
 				</button>
 
 				<!-- Show Operator -->
 				<button
 					@click="showOperator = !showOperator"
-					class="light-mode w-14 select-none rounded transition-all active:bg-light/50">
+					class="light-mode flex justify-center items-center p-1 w-14 transition-all active:dark-mode">
 					<ICaretRight
 						:class="ChangeCaret(!showOperator)"
-						class="wh-full transition-all duration-500" />
+						class="h-7 w-7 transition-all duration-500" />
 				</button>
 			</div>
 
 			<!-- List Operator -->
-			<SlideUpT direction="left">
-				<div v-if="showOperator" class="flex wh-full flex-col gap-1 overflow-hidden">
+			<SlideT direction="left">
+				<div v-if="showOperator" class="flex w-full flex-col gap-1 overflow-hidden">
 					<div class="flex w-full gap-1">
 						<button
 							v-for="i in 6"
-							@click="OPERATOR_STORE.SetFilterStar(i)"
+							@click="SetFilterStar(i)"
 							:class="ActiveFilterStar(i)"
-							class="light-mode wh-full flex justify-center rounded transition-all">
+							class="light-mode w-full flex py-1 justify-center transition-all">
 							<IStar class="h-5 w-5" />
 							{{ i }}
 						</button>
 					</div>
 
 					<div
-						class="flex wh-full flex-wrap justify-center gap-1 overflow-y-auto overflow-x-hidden rounded bg-bismark-950">
+						class="flex w-full h-full flex-wrap justify-center gap-1 overflow-y-auto overflow-x-hidden rounded bg-bismark-950">
 						<OperatorCheckbox
-							v-if="FilteredOperator.length"
-							class="ring ring-light scale-95"
-							v-for="(op, index) in FilteredOperator"
-							:key="op.id + index"
-							:operator="op" />
+							v-model="ACC_STORE.SEARCH_OPERATOR"
+							v-for="op in OperatorChecked"
+							:key="op.id"
+							:operator="op"
+							class="ring ring-light" />
 						<OperatorCheckbox
-							v-for="(op, index) in OPERATOR_STORE.FILTERED"
-							:key="op.id + index"
+							v-model="ACC_STORE.SEARCH_OPERATOR"
+							v-for="op in OperatorList"
+							:key="op.id"
 							:operator="op" />
 					</div>
 				</div>
-			</SlideUpT>
+			</SlideT>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import { ref, computed, watch, inject } from "vue"
+import { ref, computed } from "vue"
 import { useAccStore } from "@/stores/acc"
 import { useOperatorStore } from "@/stores/operator"
 import { useTagStore } from "@/stores/tag"
+import { RarityToStyle } from "@/assets/js/utils"
 
-import SlideUpT from "@transitions/SlideUpT.vue"
+import SlideT from "@transitions/SlideT.vue"
 import OperatorCheckbox from "./OperatorCheckbox.vue"
+import TagCheckbox from "@/components/tag/TagCheckbox.vue"
 
-// Utils
-const { RarityToStyle } = inject("utils")
 
 // Stores
 const ACC_STORE = useAccStore()
@@ -144,24 +165,38 @@ const TAG_STORE = useTagStore()
 
 // Variables
 const showOperator = ref(false)
+const showSort = ref(false)
+const showTag = ref(false)
+const filterStar = ref(0)
+const searchOperator = ref("")
 
 // Getters
-const FilteredOperator = computed(() => OPERATOR_STORE.ListIdToObj(OPERATOR_STORE.SEARCH_OPERATOR))
-const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")
-const ActiveSort = (value) =>
-	value ? "bg-rare-five text-bismark-950" : "bg-bismark-950"
-const ActiveSixLength = (length) =>
-	ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light" : "bg-rare-six"
-const ActiveTag = (tag) => TAG_STORE.SEARCH_TAG.includes(tag.id) ? "bg-light" : RarityToStyle(tag.rarity)
-const ActiveFilterStar = (star) => OPERATOR_STORE.FILTER_STAR === star ? "bg-light" : RarityToStyle(star)
+const TagList = computed(() => TAG_STORE.FILTERED.filter((tag) => !ACC_STORE.SEARCH_TAG.includes(tag.id)))
+const TagChecked = computed(() => TAG_STORE.ListIdToObj(ACC_STORE.SEARCH_TAG))
+const OperatorChecked = computed(() => OPERATOR_STORE.ListIdToObj(ACC_STORE.SEARCH_OPERATOR))
+const OperatorList = computed(() => {
+	let temp = OPERATOR_STORE.FILTERED
+
+	if (searchOperator.value.length > 0) {
+		temp = temp.filter((op) => op.name.toLowerCase().includes(searchOperator.value.toLowerCase()))
+	}
+
+	if (ACC_STORE.SEARCH_OPERATOR.length > 0) {
+		temp = temp.filter((op) => !ACC_STORE.SEARCH_OPERATOR.includes(op.id))
+	}
+
+	if (filterStar.value !== 0) {
+		temp = temp.filter((op) => op.rarity === filterStar.value)
+	}
+
+	return temp
+})
+
 
 // Actions
-const ClearFilter = () => {
-	ACC_STORE.ResetSort()
-	ACC_STORE.ClearSearchKeyword()
-	ACC_STORE.SetSixLength(0)
-	OPERATOR_STORE.SetFilterStar(0)
-	OPERATOR_STORE.ClearSearchOperator()
-	TAG_STORE.ClearSearchTag()
-}
+const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")
+const ActiveSort = (value) => value ? "bg-light text-bismark-950" : ""
+const ActiveSixLength = (length) => ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light text-bismark-950" : ""
+const ActiveFilterStar = (value) => filterStar.value === value ? "bg-light" : RarityToStyle(value)
+const SetFilterStar = (star) => (filterStar.value = filterStar.value === star ? 0 : star)
 </script>

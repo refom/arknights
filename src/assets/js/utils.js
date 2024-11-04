@@ -28,7 +28,6 @@ const OpIdToImg = (id) => {
 const dummyAcc = {
 	id: "This_is_Acc_ID",
 	operator: [
-		"example",
 		"ela",
 		"ascalon",
 		"amiya",
@@ -50,13 +49,16 @@ const dummyOperator = {
 	rarity: 5,
 }
 
-export default {
-	install: (app, options) => {
-		app.provide("utils", {
-			RarityToStyle,
-			OpIdToImg,
-			dummyAcc,
-			dummyOperator,
-		})
-	},
+const dummyTag = {
+	id: "starter",
+	name: "Tag",
+	rarity: 5,
+}
+
+export {
+	RarityToStyle,
+	OpIdToImg,
+	dummyAcc,
+	dummyOperator,
+	dummyTag,
 }

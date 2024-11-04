@@ -11,9 +11,7 @@
 			<div class="flex w-full gap-2">
 				<IInfoCircle class="mt-1 h-5 w-5" />
 				<div class="w-full">
-					Tap the
-					<ICaretDown class="light-mode inline h-7 w-7 rounded" />
-					or
+					Tap the Operator
 					<OperatorAvatar
 						class="inline-flex h-7 w-7 align-middle"
 						:operator="dummyOperator" />
@@ -23,8 +21,8 @@
 			<div class="flex w-full gap-2">
 				<IInfoCircle class="mt-1 h-5 w-5" />
 				<div class="w-full">
-					Tap the
-					<ICopy class="light-mode inline h-7 w-7 rounded" />
+					Tap the copy button
+					<ICopy class="inline h-7 w-7 rounded" />
 					or
 					<span class="font-oxanium text-lg font-medium">
 						#ACC_ID
@@ -64,11 +62,10 @@
 </template>
 
 <script setup>
-import { inject } from "vue"
+import { dummyAcc, dummyOperator } from "@/assets/js/utils.js"
 import { Itemku, Discord } from "@/assets/js/social.js"
 
 import AccCard from "@/components/Acc/AccCard.vue"
 import OperatorAvatar from "@/components/Acc/OperatorAvatar.vue"
 
-const { dummyAcc, dummyOperator } = inject("utils")
 </script>

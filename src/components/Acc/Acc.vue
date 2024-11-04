@@ -1,21 +1,21 @@
 <template>
-	<div class="wh-full flex flex-col items-center p-3 xl:w-2/3" ref="listEl">
+	<div class="flex flex-col w-full h-full items-center p-3 xl:w-2/3" ref="listEl">
 		<div
 			v-if="isLoading"
-			class="wh-full flex flex-col items-center justify-center">
+			class="h-full w-full flex flex-col items-center justify-center">
 			<IRefresh class="h-1/3 w-1/3 animate-spin" />
 			<span class="animate-pulse"> Loading Data... </span>
 		</div>
 
 		<div
 			v-if="errorMessage"
-			class="wh-full flex flex-wrap justify-center bg-red-300 p-3">
+			class="w-full h-full flex flex-wrap justify-center bg-red-300 p-3">
 			{{ errorMessage }}
 		</div>
 
 		<div
 			v-if="AccData"
-			class="wh-full flex flex-col items-center justify-center gap-3 md:w-3/4 xl:w-2/3">
+			class="w-full h-full flex flex-col items-center gap-3 md:w-3/4 xl:w-2/3">
 			<AccCard v-for="acc in AccData" :acc="acc" :key="acc.id" />
 		</div>
 	</div>
@@ -39,7 +39,7 @@ const TAG_STORE = useTagStore()
 // Variables
 const listEl = ref(null)
 const currentLimit = ref(0)
-const limit = 5
+const limit = 10
 
 const isLoading = ref(false)
 const errorMessage = ref(null)

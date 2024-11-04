@@ -1,6 +1,7 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { GetApi, STATUS, END_API } from "@/assets/js/api";
+import { dummyTag } from "@/assets/js/utils";
 
 const useTagStore = defineStore("tag", () => {
 	// States
@@ -8,16 +9,15 @@ const useTagStore = defineStore("tag", () => {
 	const SEARCH_TAG = ref([])
 
 	// Getters
-	const GetSorted = computed(() => DATA.value.sort((a, b) => b.rarity - a.rarity))
+	const FILTERED = computed(() => DATA.value.sort((a, b) => b.rarity - a.rarity))
 
 	// Actions
-	const GetById = (id) =>
-		DATA.value.find((tag) => tag.id === id) ||
-		{
-			id: "tag id",
-			name: "Tag Example",
-			rarity: 6,
-		}
+	const GetById = (id) => DATA.value.find((tag) => tag.id === id) || dummyTag
+
+	const ListIdToObj = (tagList) => {
+		const temp = tagList.map((id) => GetById(id))
+		return temp.sort((a, b) => b.rarity - a.rarity)
+	}
 
 	const AddSearchTag = (id) => {
 		if (SEARCH_TAG.value.includes(id)) {
@@ -31,11 +31,6 @@ const useTagStore = defineStore("tag", () => {
 		SEARCH_TAG.value = []
 	}
 
-	const GetTags = (tagList) => {
-		const temp = tagList.map((id) => GetById(id))
-		return temp.sort((a, b) => b.rarity - a.rarity)
-	}
-
 	const Fetch = async () => {
 		const { status, data, message } = await GetApi(END_API.tag)
 		if (status === STATUS.BAD) return console.error(message)
@@ -45,11 +40,11 @@ const useTagStore = defineStore("tag", () => {
 	return {
 		DATA,
 		SEARCH_TAG,
-		GetSorted,
+		FILTERED,
 		AddSearchTag,
 		ClearSearchTag,
-		GetTags,
 		GetById,
+		ListIdToObj,
 		Fetch,
 	}
 })
