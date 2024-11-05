@@ -39,7 +39,7 @@
 						<IStar class="h-7 w-7 text-rare-six" />
 						<ICaretUp
 							:class="ChangeCaret(ACC_STORE.SORT_SIX_LENGTH.reverse)"
-							class="h-5 w-5 transition-all" />
+							class="h-7 w-7 transition-all" />
 					</button>
 				</div>
 			</SlideT>

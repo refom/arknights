@@ -14,7 +14,7 @@
 
 					<span
 						v-if="IsNew"
-						class="flex h-1/2 animate-pulse items-center rounded bg-rare-five pl-1 pr-2 font-oxanium text-xs font-medium text-bismark-950">
+						class="flex h-5 animate-pulse items-center rounded bg-rare-five pl-1 pr-2 font-oxanium text-xs font-medium text-bismark-950">
 						<IStar class="h-4 w-4" />
 						NEW
 					</span>
@@ -110,7 +110,7 @@ const IsNew = computed(() => {
 // Actions
 const CopyAcc = () => {
 	const sixStarOp = Operators.value
-		.filter((op) => op.rarity === 6)
+		.filter((op) => op.rarity === 6 || op.limited)
 		.map((op) => op.name)
 	const tagsName = Tags.value.map((tag) => tag.name).join(", ")
 	navigator.clipboard

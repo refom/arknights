@@ -1,5 +1,6 @@
 <template>
 	<div class="flex max-h-max w-full flex-col gap-3">
+		<!-- Buy -->
 		<div class="flex w-full flex-col gap-3 rounded-r bg-bismark-950 p-3">
 			<div class="flex w-full gap-2">
 				<IInfoCircle class="h-5 w-5" />
@@ -14,7 +15,7 @@
 					Tap the Operator
 					<OperatorAvatar
 						class="inline-flex h-7 w-7 align-middle"
-						:operator="dummyOperator" />
+						:operator="dumOp" />
 					to show more Operator.
 				</div>
 			</div>
@@ -55,6 +56,77 @@
 			</div>
 		</div>
 
+		<table class="table table-auto bg-bismark-950 rounded-r">
+			<tbody>
+				<!-- Limited -->
+				<tr>
+					<td class="place-items-center">
+						<IStar class="limited-bg h-5 w-6" />
+					</td>
+					<td class="px-3 py-1">Limited Operator</td>
+				</tr>
+				<!-- New -->
+				<tr>
+					<td class="place-items-center">
+						<div
+							class="flex h-5 w-max animate-pulse items-center rounded bg-rare-five pl-1 pr-2 font-oxanium text-xs font-medium text-bismark-950">
+							<IStar class="h-4 w-4" />
+							NEW
+						</div>
+					</td>
+					<td class="px-3 py-1">Newly added Account</td>
+				</tr>
+				<!-- Sort Date -->
+				<tr>
+					<td class="place-items-center">
+						<div class="flex">
+							<ICalendar class="h-7 w-7" />
+							<ICaretUp class="h-7 w-7" />
+						</div>
+					</td>
+					<td class="px-3 py-1">Sort by date added</td>
+				</tr>
+				<!-- Sort how many 6 stars -->
+				<tr>
+					<td class="place-items-center">
+						<div class="flex">
+							<IStar class="h-7 w-7 text-rare-six" />
+							<ICaretUp class="h-7 w-7" />
+						</div>
+					</td>
+					<td class="px-3 py-1">Sort by how many 6 stars</td>
+				</tr>
+				<!-- Filter six star amount -->
+				<tr>
+					<td>
+						<div class="flex flex-col">
+							<div class="flex justify-center gap-1 border px-1">
+								1
+								<IStar class="h-5 w-5 text-rare-six" />
+							</div>
+							<div class="flex justify-center gap-1 border px-1">
+								2
+								<IStar class="h-5 w-5 text-rare-six" />
+							</div>
+						</div>
+					</td>
+					<td class="px-3 py-1">
+						Filter accounts by how many 6 stars they have
+					</td>
+				</tr>
+				<!-- Filter only tag -->
+				<tr>
+					<td class="place-items-center">
+						<div class="flex border px-1">&&</div>
+					</td>
+					<td class="px-3 py-1">
+						Filter accounts by ONLY selected tags
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<!-- Acc Information -->
 		<div class="flex w-full p-3">
 			<AccCard :acc="dummyAcc" />
 		</div>
@@ -64,8 +136,14 @@
 <script setup>
 import { dummyAcc, dummyOperator } from "@/assets/js/utils.js"
 import { Itemku, Discord } from "@/assets/js/social.js"
+import { computed } from "vue"
 
 import AccCard from "@/components/Acc/AccCard.vue"
 import OperatorAvatar from "@/components/Acc/OperatorAvatar.vue"
 
+const dumOp = computed(() => {
+	const temp = dummyOperator
+	temp.limited = false
+	return temp
+})
 </script>
