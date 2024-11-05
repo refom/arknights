@@ -24,4 +24,8 @@
 	.wh-full {
 		@apply w-full h-full
 	}
+
+	.limited-bg {
+		@apply text-violet-600 rounded-full bg-light p-0.5
+	}
 }

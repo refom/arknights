@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="sticky top-0 flex max-h-screen w-1/3 flex-col items-center gap-3 overflow-hidden">
+		class="sticky top-0 z-10 flex max-h-screen w-1/3 flex-col items-center gap-3 overflow-hidden">
 		<!-- Logo / Social -->
 		<div class="flex max-h-24 w-full items-center justify-center gap-3 p-3">
 			<img src="/icon.png" alt="icon" class="h-full rounded-full" />

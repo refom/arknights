@@ -1,7 +1,7 @@
 <template>
 	<label
 		:class="RarityToStyle(operator.rarity)"
-		class="max-h-18 flex aspect-square max-w-14 flex-col items-center rounded cursor-pointer hover:max-h-full md:max-h-20 md:max-w-16 lg:max-h-24 lg:max-w-20 hover:bg-apricot-100 transition-all">
+		class="relative max-h-18 flex aspect-square max-w-14 flex-col items-center rounded cursor-pointer hover:max-h-full md:max-h-20 md:max-w-16 lg:max-h-24 lg:max-w-20 hover:bg-apricot-100 transition-all">
 		<input
 			:id="operator.id"
 			type="checkbox"
@@ -13,6 +13,10 @@
 			:src="OpIdToImg(operator.id)"
 			:alt="operator.name"
 			class="max-h-20 object-cover" />
+
+		<IStar 
+			v-if="operator.limited"
+			class="absolute top-0 -right-0 h-5 w-5 limited-bg" />
 
 		<p class="w-full overflow-hidden text-wrap text-center text-xs font-medium text-bismark-950">
 			{{ operator.name }}
@@ -31,6 +35,7 @@ const PROPS = defineProps({
 				id: "amiya",
 				name: "Amiya",
 				rarity: 5,
+				limited: false,
 			}
 		},
 	},

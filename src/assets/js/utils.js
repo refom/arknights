@@ -47,6 +47,7 @@ const dummyOperator = {
 	id: "amiya",
 	name: "Operator",
 	rarity: 5,
+	limited: true,
 }
 
 const dummyTag = {

@@ -23,7 +23,7 @@
 						<IInfoCircle class="h-5 w-5 mt-1" />
 						<div class="w-full">
 							Tap the Operator
-							<OperatorAvatar class="inline-flex align-middle h-7 w-7" :operator="dummyOperator" />
+							<OperatorAvatar class="inline-flex align-middle h-7 w-7" :operator="dumOp" />
 							to show more Operator.
 						</div>
 					</div>
@@ -76,7 +76,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
+import { computed, ref } from "vue"
 import { Itemku, Discord } from "@/assets/js/social.js"
 import { dummyAcc, dummyOperator } from "@/assets/js/utils.js"
 
@@ -88,5 +88,11 @@ import OperatorAvatar from "@/components/Acc/OperatorAvatar.vue"
 // Variables
 const showAcc = ref(false)
 const showHow = ref(false)
+
+const dumOp = computed(() => {
+	const temp = dummyOperator
+	temp.limited = false
+	return temp
+})
 
 </script>
