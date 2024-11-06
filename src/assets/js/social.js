@@ -1,7 +1,7 @@
 const Itemku = {
 	name: "Itemku",
 	icon: "./itemku.png",
-	url: "https://fb.itemku.com/ZsZM",
+	url: "https://itemku.com/t/repom",
 }
 const Discord = {
 	name: "Discord",
