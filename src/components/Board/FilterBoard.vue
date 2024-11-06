@@ -102,7 +102,7 @@
 		</div>
 
 		<!-- Operator -->
-		<div class="flex max-h-[40vh] w-full flex-col gap-3">
+		<div class="flex max-h-[40vh] w-full flex-col gap-3 mb-3">
 			<!-- Search -->
 			<div class="flex h-10 w-full gap-1">
 				<input
@@ -204,6 +204,10 @@ const OperatorList = computed(() => {
 
 	if (filterStar.value !== 0) {
 		temp = temp.filter((op) => op.rarity === filterStar.value)
+	}
+
+	if (ACC_STORE.SEARCH_KEYWORD.length > 0) {
+		temp = temp.filter((op) => op.name.toLowerCase().includes(ACC_STORE.SEARCH_KEYWORD.toLowerCase()))
 	}
 
 	return temp

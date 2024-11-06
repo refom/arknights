@@ -154,6 +154,10 @@ const OperatorList = computed(() => {
 		temp = temp.filter((op) => op.rarity === filterStar.value)
 	}
 
+	if (ACC_STORE.SEARCH_KEYWORD.length > 0) {
+		temp = temp.filter((op) => op.name.toLowerCase().includes(ACC_STORE.SEARCH_KEYWORD.toLowerCase()))
+	}
+
 	return temp
 })
 
