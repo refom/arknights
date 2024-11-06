@@ -43,7 +43,7 @@
 			</div>
 		</div>
 
-		<div class="wh-full flex max-h-[70vh] overflow-y-auto">
+		<div class="wh-full flex max-h-[70vh] overflow-y-auto overflow-x-hidden">
 			<SlideT direction="right">
 				<InfoSidebar v-if="CurrentTab === 1" />
 

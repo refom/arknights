@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="mt-3 flex max-h-max w-full flex-col gap-3 rounded-r bg-bismark-950 p-3">
+		class="mt-3 flex max-h-full w-full flex-col gap-3 rounded-r bg-bismark-950 p-3">
 		<!-- Search Bar -->
 		<div class="mt-3 flex h-10 w-full items-center gap-1 px-3">
 			<input
@@ -19,12 +19,11 @@
 		</div>
 
 		<!-- Sort by -->
-		<div
-			class="flex h-10 w-full gap-1 items-center justify-center px-3 font-oxanium font-semibold">
+		<div class="flex min-h-10 overflow-y-auto flex-wrap w-full gap-1 items-center justify-center px-3 font-oxanium font-semibold">
 			<button
 				@click="ACC_STORE.SortNew"
 				:class="ActiveSort(!ACC_STORE.SORT_NEW)"
-				class="flex h-full items-center p-1 transition-all hover:bg-light hover:text-bismark-950">
+				class="flex items-center p-1 transition-all hover:bg-light hover:text-bismark-950">
 				<ICalendar class="h-7 w-7" />
 				<ICaretUp
 					:class="ChangeCaret(!ACC_STORE.SORT_NEW)"
@@ -34,7 +33,7 @@
 			<button
 				@click="ACC_STORE.SortSixLength"
 				:class="ActiveSort(ACC_STORE.SORT_SIX_LENGTH.active)"
-				class="flex h-full items-center p-1 transition-all hover:bg-light hover:text-bismark-950">
+				class="flex items-center p-1 transition-all hover:bg-light hover:text-bismark-950">
 				<IStar class="h-7 w-7 text-rare-six" />
 				<ICaretUp
 					:class="ChangeCaret(ACC_STORE.SORT_SIX_LENGTH.reverse)"
@@ -42,24 +41,17 @@
 			</button>
 
 			<button
-				@click="ACC_STORE.SetSixLength(1)"
-				:class="ActiveSixLength(1)"
-				class="hover:light-mode flex h-full items-center gap-1 px-3 py-1 transition-all">
-				1
-				<IStar class="h-7 w-7 text-rare-six" />
-			</button>
-
-			<button
-				@click="ACC_STORE.SetSixLength(2)"
-				:class="ActiveSixLength(2)"
-				class="hover:light-mode flex h-full items-center gap-1 px-3 py-1 transition-all">
-				2
+				v-for="i in SixLengthPossible"
+				@click="ACC_STORE.SetSixLength(i)"
+				:class="ActiveSixLength(i)"
+				class="hover:light-mode flex items-center gap-1 px-3 py-1 transition-all">
+				{{ i }}
 				<IStar class="h-7 w-7 text-rare-six" />
 			</button>
 		</div>
 
 		<!-- Tag -->
-		<div class="flex h-10 w-full gap-1 px-3 font-oxanium justify-center">
+		<div class="flex min-h-10 flex-wrap overflow-y-auto w-full gap-1 px-3 font-oxanium justify-center">
 			<button
 				@click="ACC_STORE.SetOnlyTag"
 				:class="ActiveTag(ACC_STORE.SEARCH_ONLY_TAG)"
@@ -71,7 +63,7 @@
 				v-model="ACC_STORE.SEARCH_TAG"
 				v-for="tag in TagChecked"
 				:tag="tag"
-				class="py-2 ring ring-light" />
+				class="my-1 ring ring-light" />
 			<TagCheckbox
 				v-model="ACC_STORE.SEARCH_TAG"
 				v-for="tag in TagList"
@@ -92,20 +84,19 @@
 		</div>
 
 		<!-- List Operator -->
-			<div
-				class="flex w-full flex-wrap justify-center gap-1 overflow-y-auto overflow-x-hidden bg-bismark-950">
-				<OperatorCheckbox
-					v-model="ACC_STORE.SEARCH_OPERATOR"
-					v-for="op in OperatorChecked"
-					:key="op.id"
-					:operator="op"
-					class="ring ring-light" />
-				<OperatorCheckbox
-					v-model="ACC_STORE.SEARCH_OPERATOR"
-					v-for="op in OperatorList"
-					:key="op.id"
-					:operator="op" />
-			</div>
+		<div class="flex w-full flex-wrap justify-center gap-1 overflow-y-auto overflow-x-hidden bg-bismark-950">
+			<OperatorCheckbox
+				v-model="ACC_STORE.SEARCH_OPERATOR"
+				v-for="op in OperatorChecked"
+				:key="op.id"
+				:operator="op"
+				class="ring ring-light" />
+			<OperatorCheckbox
+				v-model="ACC_STORE.SEARCH_OPERATOR"
+				v-for="op in OperatorList"
+				:key="op.id"
+				:operator="op" />
+		</div>
 	</div>
 </template>
 
@@ -160,6 +151,7 @@ const OperatorList = computed(() => {
 
 	return temp
 })
+const SixLengthPossible = computed(() => [...new Set(ACC_STORE.DATA.map((acc) => acc.six_op_length))])
 
 // Actions
 const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")

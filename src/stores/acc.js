@@ -95,6 +95,7 @@ const useAccStore = defineStore("acc", () => {
 	}
 
 	return {
+		DATA,
 		FILTERED,
 		SEARCH_KEYWORD,
 		SEARCH_SIX_LENGTH,

@@ -61,41 +61,33 @@
 					<!-- Six Star Length -->
 					<div class="flex justify-center w-full font-semibold">
 						<button
-							@click="ACC_STORE.SetSixLength(1)"
-							:class="ActiveSixLength(1)"
+							v-for="i in SixLengthPossible"
+							@click="ACC_STORE.SetSixLength(i)"
+							:class="ActiveSixLength(i)"
 							class="flex w-full h-full justify-center gap-1 py-2 transition-all">
-							1
-							<IStar class="h-5 w-5 text-rare-six" />
-						</button>
-						<button
-							@click="ACC_STORE.SetSixLength(2)"
-							:class="ActiveSixLength(2)"
-							class="flex w-full h-full justify-center gap-1 py-2 transition-all">
-							2
+							{{ i }}
 							<IStar class="h-5 w-5 text-rare-six" />
 						</button>
 					</div>
 	
 					<!-- Tags -->
-					<div class="flex">
+					<div class="flex flex-wrap w-full justify-center gap-1 font-oxanium font-medium">
 						<button
 							@click="ACC_STORE.SetOnlyTag"
 							:class="ActiveTag(ACC_STORE.SEARCH_ONLY_TAG)"
 							class="font-bold p-2 active:dark-mode">
 							&&
 						</button>
-
-						<div class="flex flex-wrap w-full justify-center gap-1 font-oxanium font-medium">
-							<TagCheckbox
-								v-model="ACC_STORE.SEARCH_TAG"
-								v-for="tag in TagChecked"
-								:tag="tag"
-								class="ring ring-light" />
-							<TagCheckbox
-								v-model="ACC_STORE.SEARCH_TAG"
-								v-for="tag in TagList"
-								:tag="tag" />
-						</div>
+						<TagCheckbox
+							v-model="ACC_STORE.SEARCH_TAG"
+							v-for="tag in TagChecked"
+							:tag="tag"
+							class="ring ring-light" />
+						<TagCheckbox
+							v-model="ACC_STORE.SEARCH_TAG"
+							v-for="tag in TagList"
+							:tag="tag"
+							class="py-2" />
 					</div>
 				</div>
 			</SlideT>
@@ -212,6 +204,7 @@ const OperatorList = computed(() => {
 
 	return temp
 })
+const SixLengthPossible = computed(() => [...new Set(ACC_STORE.DATA.map((acc) => acc.six_op_length))])
 
 
 // Actions
