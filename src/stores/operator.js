@@ -25,7 +25,17 @@ const useOperatorStore = defineStore("operator", () => {
 	const GetById = (id) => DATA.value.find((op) => op.id === id) || dummyOperator
 	const ListIdToObj = (opList) => {
 		const temp = opList.map((id) => GetById(id))
-		return temp.sort((a, b) => b.rarity - a.rarity)
+		return SortList(temp)
+	}
+	const SortList = (opList) => {
+		return opList.sort((a, b) => {
+			if (b.rarity > a.rarity) return 1
+			if (b.rarity < a.rarity) return -1
+
+			if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+			if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+			return 0
+		})
 	}
 
 	const Fetch = async () => {
