@@ -204,7 +204,9 @@ const OperatorList = computed(() => {
 
 	return temp
 })
-const SixLengthPossible = computed(() => [...new Set(ACC_STORE.DATA.map((acc) => acc.six_op_length))])
+const SixLengthPossible = computed(() => {
+	return [...new Set(ACC_STORE.DATA.map((acc) => acc.six_op_length))].sort((a, b) => b - a)
+})
 
 
 // Actions
