@@ -111,7 +111,7 @@ const IsNew = computed(() => {
 const CopyAcc = () => {
 	const sixStarOp = Operators.value
 		.filter((op) => op.rarity === 6 || op.limited)
-		.map((op) => op.name)
+		.map((op) => op.name).join(", ")
 	const tagsName = Tags.value.map((tag) => tag.name).join(", ")
 	navigator.clipboard
 		.writeText(`#${PROPS.acc.id}\nOperator: ${sixStarOp}\nTag: ${tagsName}`)
