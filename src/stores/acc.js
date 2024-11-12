@@ -22,49 +22,39 @@ const useAccStore = defineStore("acc", () => {
 
 	// Getters
 	const FILTERED = computed(() => {
-		let temp = DATA.value
+		const opStore = useOperatorStore();
+		const tagStore = useTagStore();
+		const keyword = SEARCH_KEYWORD.value.toLowerCase();
 
-		temp = temp.sort((a, b) => {
-			if (SORT_SIX_LENGTH.value.active) {
-				if (b.six_op_length > a.six_op_length) return SORT_SIX_LENGTH.value.reverse ? -1 : 1
-				if (b.six_op_length < a.six_op_length) return SORT_SIX_LENGTH.value.reverse ? 1 : -1
-			}
+		return DATA.value
+			.filter(acc => {
+				if (SEARCH_OPERATOR.value.length && !SEARCH_OPERATOR.value.every(op => acc.operator.includes(op))) return false;
+				if (SEARCH_SIX_LENGTH.value && acc.six_op_length !== SEARCH_SIX_LENGTH.value) return false;
 
-			const aDate = new Date(a.created_at)
-			const bDate = new Date(b.created_at)
+				if (SEARCH_TAG.value.length) {
+					const accTags = acc.tag.sort().join(",");
+					const searchTags = SEARCH_TAG.value.sort().join(",");
+					if (SEARCH_ONLY_TAG.value && accTags !== searchTags) return false;
+					if (!SEARCH_ONLY_TAG.value && !SEARCH_TAG.value.every(tag => acc.tag.includes(tag))) return false;
+				}
 
-			return !SORT_NEW.value ? aDate - bDate : bDate - aDate
-		})
+				if (keyword) {
+					const keywordMatch = acc.id.toLowerCase().includes(keyword) ||
+						acc.operator.some(op => opStore.GetById(op).name.toLowerCase().includes(keyword)) ||
+						acc.tag.some(tag => tagStore.GetById(tag).name.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase().includes(keyword));
+					if (!keywordMatch) return false;
+				}
 
-		if (SEARCH_OPERATOR.value.length) {
-			temp = temp.filter((acc) => SEARCH_OPERATOR.value.every((op) => acc.operator.includes(op)))
-		}
-
-		if (SEARCH_SIX_LENGTH.value) {
-			temp = temp.filter((acc) => acc.six_op_length === SEARCH_SIX_LENGTH.value)
-		}
-
-		if (SEARCH_TAG.value.length) {
-			if (SEARCH_ONLY_TAG.value) {
-				temp = temp.filter((acc) => acc.tag.sort().join(",") === SEARCH_TAG.value.sort().join(","))
-			} else {
-				temp = temp.filter((acc) => SEARCH_TAG.value.every((tag) => acc.tag.includes(tag)))
-			}
-		}
-
-		const OPERATOR_STORE = useOperatorStore()
-		const TAG_STORE = useTagStore()
-
-		if (SEARCH_KEYWORD.value) {
-			temp = temp.filter((acc) => 
-				acc.id.toLowerCase().includes(SEARCH_KEYWORD.value.toLowerCase()) ||
-				acc.operator.map((op) => OPERATOR_STORE.GetById(op).name.toLowerCase()).includes(SEARCH_KEYWORD.value.toLowerCase()) ||
-				acc.tag.map((tag) => TAG_STORE.GetById(tag).name.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase()).includes(SEARCH_KEYWORD.value.toLowerCase())
-			)
-		}
-
-		return temp
-	})
+				return true;
+			})
+			.sort((a, b) => {
+				if (SORT_SIX_LENGTH.value.active) {
+					if (b.six_op_length > a.six_op_length) return SORT_SIX_LENGTH.value.reverse ? -1 : 1
+					if (b.six_op_length < a.six_op_length) return SORT_SIX_LENGTH.value.reverse ? 1 : -1
+				}
+				return SORT_NEW.value ? new Date(b.created_at) - new Date(a.created_at) : new Date(a.created_at) - new Date(b.created_at);
+			});
+	});
 
 	// Actions
 	const SetSixLength = (length) => SEARCH_SIX_LENGTH.value = SEARCH_SIX_LENGTH.value === length ? 0 : length

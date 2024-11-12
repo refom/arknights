@@ -77,9 +77,15 @@
 				v-for="i in 6"
 				@click="SetFilterStar(i)"
 				:class="ActiveFilterStar(i)"
-				class="light-mode hover:light-mode flex w-full justify-center py-1 transition-all">
+				class="text-bismark-950 hover:light-mode flex w-full justify-center py-1 transition-all">
 				<IStar class="h-5 w-5" />
 				{{ i }}
+			</button>
+			<button
+				@click="SetIsLimited()"
+				:class="ActiveLimited()"
+				class="hover:light-mode w-full flex py-1 justify-center transition-all h-full items-center" >
+				<IStar class="h-5 w-5 limited-bg" />
 			</button>
 		</div>
 
@@ -119,37 +125,24 @@ const TAG_STORE = useTagStore()
 // Variables
 const filterStar = ref(0)
 const searchOperator = ref("")
+const searchLimited = ref(false)
 
 // Getters
-const TagList = computed(() =>
-	TAG_STORE.FILTERED.filter((tag) => !ACC_STORE.SEARCH_TAG.includes(tag.id)),
-)
+const TagList = computed(() => TAG_STORE.FILTERED.filter((tag) => !ACC_STORE.SEARCH_TAG.includes(tag.id)))
 const TagChecked = computed(() => TAG_STORE.ListIdToObj(ACC_STORE.SEARCH_TAG))
-const OperatorChecked = computed(() =>
-	OPERATOR_STORE.ListIdToObj(ACC_STORE.SEARCH_OPERATOR),
-)
+const OperatorChecked = computed(() => OPERATOR_STORE.ListIdToObj(ACC_STORE.SEARCH_OPERATOR))
 const OperatorList = computed(() => {
-	let temp = OPERATOR_STORE.FILTERED
+	const search = searchOperator.value.toLowerCase()
+	const keyword = ACC_STORE.SEARCH_KEYWORD.toLowerCase()
+	const searchedOperators = OPERATOR_STORE.FILTERED.filter((op) =>
+		!ACC_STORE.SEARCH_OPERATOR.includes(op.id) &&
+		(filterStar.value === 0 || op.rarity === filterStar.value) &&
+		op.name.toLowerCase().includes(search) &&
+		op.name.toLowerCase().includes(keyword) &&
+		(!searchLimited.value || op.limited)
+	)
 
-	if (searchOperator.value.length > 0) {
-		temp = temp.filter((op) =>
-			op.name.toLowerCase().includes(searchOperator.value.toLowerCase()),
-		)
-	}
-
-	if (ACC_STORE.SEARCH_OPERATOR.length > 0) {
-		temp = temp.filter((op) => !ACC_STORE.SEARCH_OPERATOR.includes(op.id))
-	}
-
-	if (filterStar.value !== 0) {
-		temp = temp.filter((op) => op.rarity === filterStar.value)
-	}
-
-	if (ACC_STORE.SEARCH_KEYWORD.length > 0) {
-		temp = temp.filter((op) => op.name.toLowerCase().includes(ACC_STORE.SEARCH_KEYWORD.toLowerCase()))
-	}
-
-	return temp
+	return searchedOperators
 })
 const SixLengthPossible = computed(() => {
 	return [...new Set(ACC_STORE.DATA.map((acc) => acc.six_op_length))].sort((a, b) => b - a)
@@ -159,10 +152,9 @@ const SixLengthPossible = computed(() => {
 const ChangeCaret = (value) => (value ? "rotate-180" : "rotate-0")
 const ActiveSort = (value) => (value ? "bg-light text-bismark-950" : "")
 const ActiveTag = (value) => (value ? "light-mode" : "")
-const ActiveSixLength = (length) =>
-	ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light text-bismark-950" : ""
-const ActiveFilterStar = (value) =>
-	filterStar.value === value ? "bg-light" : RarityToStyle(value)
-const SetFilterStar = (star) =>
-	(filterStar.value = filterStar.value === star ? 0 : star)
+const ActiveSixLength = (length) => ACC_STORE.SEARCH_SIX_LENGTH === length ? "bg-light text-bismark-950" : ""
+const ActiveFilterStar = (value) => filterStar.value === value ? "bg-light" : RarityToStyle(value)
+const ActiveLimited = () => searchLimited.value ? "bg-light text-bismark-950" : "bg-rare-six"
+const SetFilterStar = (star) => (filterStar.value = filterStar.value === star ? 0 : star)
+const SetIsLimited = () => searchLimited.value = !searchLimited.value
 </script>
